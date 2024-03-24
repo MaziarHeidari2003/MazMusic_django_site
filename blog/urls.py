@@ -8,7 +8,8 @@ urlpatterns = [
   path('<int:pid>', views.blog_single, name='single'),
   path('cat/<str:cat_name>', views.blog_view, name='category'),
   path('search',views.blog_search, name='search'),
-  path('author/<str:author_name>',views.blog_view, name='author')
+  path('author/<str:author_name>',views.blog_view, name='author'),
+  path('like/<int:pid>', views.like_view, name='like_post')
 
 
   

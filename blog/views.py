@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Post,Track,Category,Musician,Comment
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from django.contrib import messages
@@ -8,6 +8,13 @@ from blog.forms import Comment_form
 
 
 # Create your views here.
+
+def like_view(request, pid):
+  post = get_object_or_404(Post, id=request.POST.get('post_id'))
+  post.likes.add(request.user)
+  return HttpResponseRedirect(reverse('blog:single', args=[str(pid)]))
+
+
 
 
 def blog_view(request, **kwargs):
