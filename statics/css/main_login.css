@@ -331,6 +331,12 @@ background: linear-gradient(bottom, #444, #999);
   background: linear-gradient(45deg, #d5007d, #e53935)
 }
 
+
+.focus-input100 input {
+  background-color: #fff; /* Set your desired background color */
+}
+
+
 .input100:focus+.focus-input100::before {
   width: 100%
 }

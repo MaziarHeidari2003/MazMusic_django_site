@@ -12,10 +12,10 @@
     <div class="tags">
       <ul>
         <li>
-          <a href="#">Travel</a>
+          <a href="{% url 'blog:single' pid=post.id %}">View Post</a>
         </li>
         <li>
-          <a href="#">Life Style</a>
+          <a href="#">{{post.author.username}}</a>
         </li>											
       </ul>
     </div>
