@@ -2483,12 +2483,12 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 /*-------- Start Banner Area ------------*/
 .banner-area {
-  background: url(../img/hero-bg.jpg) center;
+  background: url(../img/pianist.jpg) center;
   background-size: cover;
 }
 
 .banner-area .overlay-bg {
-  background: rgba(4, 9, 30, 0.4);
+  background: rgba(0, 1, 3, 0.4);
 }
 
 @media (max-width: 767px) {
@@ -3006,7 +3006,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .about-banner {
-  background: url(../img/top-banner.jpg) center;
+  background: url(../img/pianist6.jpg) center;
   background-size: cover;
 }
 
@@ -3266,9 +3266,10 @@ body.mobile-nav-active #mobile-nav-toggle {
 /* =================================== */
 /*============ Start Blog Home Styles  =============*/
 .blog-home-banner {
-  background: url(../img/blog/blog-home-banner.jpg) bottom;
+  background: url(../img/blog/pianist2.jpg) bottom;
   background-size: cover;
-  padding: 130px 0px;
+  padding-bottom: 130px ;
+  padding-top: 130px;
 }
 
 .blog-home-banner .primary-btn {

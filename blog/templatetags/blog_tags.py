@@ -36,3 +36,15 @@ def popular_posts():
 def func(pid):
   post = Post.objects.get(pk=pid)
   return Comment.objects.filter(post=post.id, approved=True).count()
+
+
+
+
+
+@register.inclusion_tag('website/latest_posts.html')
+def latest_posts():
+  posts = Post.objects.filter(approved=True)[:5]
+  return {
+    'posts':posts
+  }
+

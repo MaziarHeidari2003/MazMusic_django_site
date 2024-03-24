@@ -37,6 +37,9 @@ class Post(models.Model):
   author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
   approved = models.BooleanField(default=False)
 
+  class Meta:
+     ordering = ['published_date']
+
   def __str__(self):
     return self.title
   
