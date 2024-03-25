@@ -69,8 +69,17 @@
 						</p>
 
 						<form action="{% url 'blog:like_post' pid=post.id %}" method="post">
-							{% csrf_token %}
-							<button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">Like</button> - {{post.total_likes}} likes
+							{% csrf_token %}	
+							{% if post.likes.user.id == request.user.id %}
+								<button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">Unlike</button>							- {{post.total_likes}} likes
+
+							{% else %}
+								<button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">Like</button>
+							
+							
+							- {{post.total_likes}} likes
+
+							{% endif %}
 						</form>
 
 					</div>
