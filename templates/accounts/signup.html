@@ -4,7 +4,6 @@
 <html lang="en">
 
 <head>
-	<title>Login V13</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -48,22 +47,39 @@
 					<span class="login100-form-title p-b-59">
 						Sign Up
 					</span>
-					
-					<div class="wrap-input100 validate-input" data-validate="Name is required">
+					<!--
+					<div class="wrap-input100 validate-input" >
 						<span class="label-input100">First Name</span>
 							{{form.first_name}}
 						<span class="focus-input100"></span>
 						</div>
-						<div class="wrap-input100 validate-input" data-validate="Name is required">
+						<div class="wrap-input100 validate-input" >
 							<span class="label-input100">Last Name</span>
 								{{form.last_name}}
 							<span class="focus-input100"></span>
 							</div>
-						<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-						<span class="label-input100">Email</span>
-							{{form.email}}
-						<span class="focus-input100"></span>
+						
+						<div class="wrap-input100 validate-input" >
+							<span class="label-input100">You could choose a profile picture</span>
+							{{form.image}}
+							<span class="focus-input100"></span>
 						</div>
+
+						-->
+
+						<div class="wrap-input100 validate-input" >
+							<span class="label-input100">First Name</span>
+								{{form.first_name}}
+							<span class="focus-input100"></span>
+							</div>
+
+							<div class="wrap-input100 validate-input" >
+								<span class="label-input100">Last Name</span>
+									{{form.last_name}}
+								<span class="focus-input100"></span>
+								</div>
+	
+
 					<div class="wrap-input100 validate-input" data-validate="Username is required">
 						<span class="label-input100">Username</span>
 						{{form.username}}
@@ -80,11 +96,16 @@
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input" >
-						<span class="label-input100">You could choose a profile picture</span>
-						{{form.image}}
+				
+					<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+						<span class="label-input100">Email</span>
+							{{form.email}}
 						<span class="focus-input100"></span>
-					</div>
+						</div>
+
+				
+
+				
 
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
