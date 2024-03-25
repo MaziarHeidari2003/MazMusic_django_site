@@ -42,13 +42,28 @@
 
 				
 				<form action="{% url 'accounts:signup' %}" method="post" class="login100-form validate-form">
-
 					{% csrf_token %}
+
+
 					<span class="login100-form-title p-b-59">
 						Sign Up
 					</span>
 					
-				
+					<div class="wrap-input100 validate-input" data-validate="Name is required">
+						<span class="label-input100">First Name</span>
+							{{form.first_name}}
+						<span class="focus-input100"></span>
+						</div>
+						<div class="wrap-input100 validate-input" data-validate="Name is required">
+							<span class="label-input100">Last Name</span>
+								{{form.last_name}}
+							<span class="focus-input100"></span>
+							</div>
+						<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+						<span class="label-input100">Email</span>
+							{{form.email}}
+						<span class="focus-input100"></span>
+						</div>
 					<div class="wrap-input100 validate-input" data-validate="Username is required">
 						<span class="label-input100">Username</span>
 						{{form.username}}
@@ -64,7 +79,13 @@
 						{{form.password2}}
 						<span class="focus-input100"></span>
 					</div>
-				
+
+					<div class="wrap-input100 validate-input" >
+						<span class="label-input100">You could choose a profile picture</span>
+						{{form.image}}
+						<span class="focus-input100"></span>
+					</div>
+
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>

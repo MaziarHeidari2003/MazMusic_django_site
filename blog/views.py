@@ -62,19 +62,28 @@ def blog_single(request,pid):
 
     else:
        messages.add_message(request, messages.ERROR, "Something went wrong with ypur comment!")
-
+    
 
   categories = Category.objects.all()
   post = Post.objects.get(pk=pid)
   tracks = Track.objects.filter(post=post.id)
   form = Comment_form()
   comments = Comment.objects.filter(post=post.id, approved=True)
+
+  liked = False
+
+  if post.likes.filter(id=request.user.id).exists():
+    liked=True
+
+ 
+
   return render(request, 'blog/blog-single.html', {
       'post':post,
       'tracks':tracks,
       'categories':categories,
       'comments':comments,
-      'form':form
+      'form':form,
+      'liked':liked
     })
 
 

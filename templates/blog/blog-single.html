@@ -70,17 +70,25 @@
 
 						<form action="{% url 'blog:like_post' pid=post.id %}" method="post">
 							{% csrf_token %}	
-							{% if post.likes.user.id == request.user.id %}
-								<button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">Unlike</button>							- {{post.total_likes}} likes
+						{% if user.is_authenticated %}	
+										{% if liked %}
+											<button type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger btn-sm">Unlike</button>							- {{post.total_likes}} likes
 
-							{% else %}
-								<button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">Like</button>
-							
-							
-							- {{post.total_likes}} likes
+										{% else %}
+											<button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">Like</button>
+										
+										
+										- {{post.total_likes}} likes
 
-							{% endif %}
+										{% endif %}
+						
 						</form>
+						{% else %}
+								<a href="{% url 'accounts:login' %}" >Login </a> 	to like
+								
+				
+
+						{% endif %}
 
 					</div>
 					<div class="col-lg-12">
