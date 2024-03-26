@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'website',
     'blog',
     'accounts.apps.AccountsConfig',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
+    'writers'
 ]
 
 MIDDLEWARE = [

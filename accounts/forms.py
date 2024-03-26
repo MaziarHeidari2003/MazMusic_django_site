@@ -10,12 +10,11 @@ class Signup_form(UserCreationForm):
   image= forms.ImageField()
 
   """
-  first_name = forms.CharField(max_length=120)
-  last_name = forms.CharField(max_length=120)
+  
   email= forms.EmailField()
 
 
 
   class Meta:
     model = User
-    fields = ['username','password1','password2','first_name','last_name','email']	
+    fields = ['username','password1','password2','email']	

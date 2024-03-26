@@ -180,7 +180,32 @@
 						
 
 					{% include 'blog/search.html' %}
-					{% include 'blog/writer.html' %}
+
+					{% if profile %}
+					
+								{% load static %}
+								{% load blog_tags %}
+							
+								<div class="single-sidebar-widget user-info-widget">
+									<img src="{{profile.image.url}}" alt="">
+									<a href="#"><h4>{{profile.first_name}} {{profile.last_name}}</h4></a>
+									<p>
+										Junior blog writer
+									</p>
+									<ul class="social-links">
+										<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+										<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+										<li><a href="#"><i class="fa fa-github"></i></a></li>
+										<li><a href="#"><i class="fa fa-behance"></i></a></li>
+									</ul>
+									<p>
+									{{profile.bio}}
+									</p>
+								</div>
+					{% endif %}
+
+
+
 					{% include 'blog/ads.html' %}
 					{% popular_posts %}
 					{% post_categories %}

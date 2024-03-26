@@ -1,5 +1,6 @@
 from django import template
 from blog.models import Post,Category,Comment
+from accounts.models import Profile
 from django.db.models import Count
 
 
@@ -48,3 +49,12 @@ def latest_posts():
     'posts':posts
   }
 
+
+@register.inclusion_tag('blog/writer.html')
+def writer_page(pid):
+  profile = Profile.objects.filter(user=pid)
+  posts = Post.objects.filter(author=pid)
+  return {
+    'posts':posts,
+    'profile':profile
+  }

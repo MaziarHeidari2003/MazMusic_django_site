@@ -1,11 +1,11 @@
 from django.urls import path, include
 from . import views
 
-app_name = 'author'
+app_name = 'writers'
 
 urlpatterns = [
-  path('writers', views.writers, name='writers'),
-  
-  
+  path('', views.writers_view, name='index'),
+ 
+
   
 ]

@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post,Track,Category,Musician,Comment
+from accounts.models import Profile
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from django.contrib import messages
 from django.http import HttpResponseRedirect
@@ -30,25 +31,38 @@ def blog_view(request, **kwargs):
 
   if kwargs.get('cat_name') != None:
     posts = posts.filter(category__name=kwargs['cat_name'])
+    posts = Paginator(posts,3)
+    try:
+      page_number = request.GET.get('page')
+      posts = posts.get_page(page_number)
+    except PageNotAnInteger:
+      posts = posts.get_page(1)
+    except EmptyPage:
+      posts = posts.get_page(1)  
+
+    return render(request, 'blog/blog-home.html',{
+      'posts':posts,
+      'categories':categories
+    })  
 
   if kwargs.get('author_name') != None:
     posts = posts.filter(author__username=kwargs['author_name'])
+    profile = Profile.objects.get(user__username=kwargs['author_name'])
 
-  posts = Paginator(posts,3)
-  try:
-    page_number = request.GET.get('page')
-    posts = posts.get_page(page_number)
-  except PageNotAnInteger:
-     posts = posts.get_page(1)
-  except EmptyPage:
-     posts = posts.get_page(1)  
+    posts = Paginator(posts,3)
+    try:
+      page_number = request.GET.get('page')
+      posts = posts.get_page(page_number)
+    except PageNotAnInteger:
+      posts = posts.get_page(1)
+    except EmptyPage:
+      posts = posts.get_page(1)  
 
-
-
-  return render(request, 'blog/blog-home.html',{
-    'posts':posts,
-    'categories':categories
-  })
+    return render(request, 'blog/blog-home.html',{
+      'posts':posts,
+      'categories':categories,
+      'profile':profile
+    })
 
 
 
@@ -63,9 +77,9 @@ def blog_single(request,pid):
     else:
        messages.add_message(request, messages.ERROR, "Something went wrong with ypur comment!")
     
-
   categories = Category.objects.all()
   post = Post.objects.get(pk=pid)
+  profile = Profile.objects.get(user=post.author)
   tracks = Track.objects.filter(post=post.id)
   form = Comment_form()
   comments = Comment.objects.filter(post=post.id, approved=True)
@@ -83,7 +97,8 @@ def blog_single(request,pid):
       'categories':categories,
       'comments':comments,
       'form':form,
-      'liked':liked
+      'liked':liked,
+      'profile':profile
     })
 
 

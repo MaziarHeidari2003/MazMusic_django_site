@@ -880,6 +880,14 @@ td, th {
   border-top: 1px dotted #eee;
 }
 
+
+.section-top-border .row .col-md-3 img{
+  height: 160px;
+  width: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .switch-wrap {
   margin-bottom: 10px;
 }
@@ -3628,6 +3636,14 @@ body.mobile-nav-active #mobile-nav-toggle {
 .widget-wrap .user-info-widget .social-links li {
   display: inline-block;
   margin-bottom: 10px;
+}
+
+.widget-wrap .user-info-widget img{
+ height: 125 px;
+ width:125px;
+ border-radius: 50%;
+ object-fit: cover;
+ 
 }
 
 .widget-wrap .user-info-widget .social-links li a {

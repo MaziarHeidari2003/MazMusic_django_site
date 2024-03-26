@@ -66,8 +66,6 @@ def signup_view(request):
   form.fields['last_name'].widget.attrs['class'] = 'input100'
   """
 
-  form.fields['last_name'].widget.attrs['class'] = 'input100'
-  form.fields['first_name'].widget.attrs['class'] = 'input100'
   form.fields['password1'].widget.attrs['class'] = 'input100'
   form.fields['password2'].widget.attrs['class'] = 'input100'
   form.fields['username'].widget.attrs['class'] = 'input100'
@@ -80,3 +78,5 @@ def signup_view(request):
   return render(request, 'accounts/signup.html',{
     'form':form
   })
+
+

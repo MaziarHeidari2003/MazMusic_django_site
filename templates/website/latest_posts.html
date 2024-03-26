@@ -15,7 +15,7 @@
           <a href="{% url 'blog:single' pid=post.id %}">View Post</a>
         </li>
         <li>
-          <a href="#">{{post.author.username}}</a>
+          <a href="{% url 'blog:author' author_name=post.author.username %}">{{post.author.username}}</a>
         </li>											
       </ul>
     </div>
