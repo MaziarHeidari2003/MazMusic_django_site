@@ -1,4 +1,17 @@
 from django.contrib import admin
 from .models import Profile 
 # Register your models here.
-admin.site.register(Profile)
+
+class Profile_admin(admin.ModelAdmin):
+
+  empty_value_display = 'it is empty'
+  list_display = ['user', 'first_name','last_name' ]
+  list_filter = ['user']
+
+
+
+
+admin.site.register(Profile,Profile_admin)
+
+
+

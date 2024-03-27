@@ -27,7 +27,6 @@ def like_view(request, pid):
 def blog_view(request, **kwargs):
   posts = Post.objects.all()
   categories = Category.objects.all()
-  musician = Musician.objects.all()
 
   if kwargs.get('cat_name') != None:
     posts = posts.filter(category__name=kwargs['cat_name'])
@@ -64,6 +63,11 @@ def blog_view(request, **kwargs):
       'profile':profile
     })
 
+  
+  return render(request, 'blog/blog-home.html',{
+      'posts':posts,
+      'categories':categories,
+    })
 
 
 def blog_single(request,pid):

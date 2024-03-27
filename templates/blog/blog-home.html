@@ -187,7 +187,11 @@
 								{% load blog_tags %}
 							
 								<div class="single-sidebar-widget user-info-widget">
-									<img src="{{profile.image.url}}" alt="">
+									{% if profile.image %}
+											<img src="{{profile.image.url}}" alt="" class="img-fluid">
+										{% else %}
+											<img src="{% static 'img/default_profile.png' %}">
+										{% endif %}
 									<a href="#"><h4>{{profile.first_name}} {{profile.last_name}}</h4></a>
 									<p>
 										Junior blog writer

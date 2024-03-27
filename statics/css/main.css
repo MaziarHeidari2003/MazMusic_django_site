@@ -3639,7 +3639,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .widget-wrap .user-info-widget img{
- height: 125 px;
+ height: 125px;
  width:125px;
  border-radius: 50%;
  object-fit: cover;
