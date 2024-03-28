@@ -11,12 +11,12 @@
 		<div class="row d-flex align-items-center justify-content-center">
 			<div class="about-content blog-header-content col-lg-12">
 				<h1 class="text-white">
-					Dude You’re Getting
-					a Telescope
+					Welcome to your own posting page, dear {{profile.first_name}}
 				</h1>
-				<p class="text-white">
-					There is a moment in the life of any aspiring astronomer that it is time to buy that first
-				</p>
+				<br>
+				<h4 class="text-white">
+						Whats new? Let us know about you and your music interests
+				</h4>
 			</div>
 		</div>
 	</div>
@@ -31,7 +31,10 @@
 		</div>
 	</div>
 </section>
+
 <!-- End top-category-widget Area -->
+
+
 
 <!-- Start post-content Area -->
 <section class="post-content-area">
@@ -80,6 +83,19 @@
 						</a>
 					</div>
 				</div>
+				{% empty %}
+
+				<div class="col-lg-9 col-md-9 ">
+					<br>
+					<br>
+					<a class="posts-title" >
+						<h3>No posts yet? Come on {{profile.first_name}}! Just post something.<br>
+						Don't be shy!</h3>
+					</a>
+					
+				
+				</div>
+
 				{% endfor %}
 				
 				{% if profile.user == request.user %}

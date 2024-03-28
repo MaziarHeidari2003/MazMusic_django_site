@@ -97,8 +97,11 @@
 								<h3 class="mb-30">Want to be a blog member?</h3>
 							
 								
-							{% if request.user.is_authenticated %}
+							{% if profile.user == request.user.id %}
+								<p>bbbbbbbbbbbbbbbbbbbbbbb</p>
+							{% endif %}
 
+							{% if request.user.is_authenticated %}	
 							
 							<form action="{% url 'writers:membership' %}" enctype="multipart/form-data" method="post">
 								{% csrf_token %}
@@ -130,6 +133,18 @@
 
 						
 							</form>
+				
+							{% else %}
+							<h4 class="mb-30">You should first have an account and log in</h4>
+								
+							<div class="mt-10">
+								<a href="{% url 'accounts:login' %}">Login</a> <br>
+								<a href="{% url 'accounts:signup' %}">Sign up</a>
+							</div>
+
+							{% endif %}
+
+
 <!--
 		<div class="mt-10">
 			<input type="text" name="first_name" placeholder="First Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required class="single-input">
@@ -147,18 +162,6 @@
 								-->
 							
 
-							{% else %}
-							<h4 class="mb-30">You should first have an account and log in</h4>
-
-								
-							<div class="mt-10">
-								<a href="{% url 'accounts:login' %}">Login</a> <br>
-								<a href="{% url 'accounts:signup' %}">Sign up</a>
-							</div>
-
-					
-
-							{% endif %}
 
 					
 

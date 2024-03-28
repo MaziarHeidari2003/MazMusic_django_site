@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from blog.models import Post
 
 
 # Create your views here.
@@ -13,6 +14,9 @@ from django.urls import reverse
 
 def writers_view(request):
   profiles = Profile.objects.all()
+  if   Profile.objects.get(user=request.user):
+    print(request.user)
+
   if request.method == 'POST':
     form = Blog_signup_form(request.POST,request.FILES)
     if form.is_valid():
@@ -41,6 +45,15 @@ def writers_view(request):
     'form':form
   })    
 
+
+
+def writer_posts_view(request):
+  profile = Profile.objects.get(user=request.user)
+  posts = Post.objects.filter(author=request.user)
+  return render (request, 'writers/writer_view.html',{
+    'posts':posts,
+    'profile':profile
+  })
 
 
 

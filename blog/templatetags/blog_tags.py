@@ -2,6 +2,7 @@ from django import template
 from blog.models import Post,Category,Comment
 from accounts.models import Profile
 from django.db.models import Count
+import random
 
 
 
@@ -58,3 +59,17 @@ def writer_page(pid):
     'posts':posts,
     'profile':profile
   }
+
+
+@register.inclusion_tag('blog/random_categories.html')
+def top_categories():
+    cat_num = Category.objects.count()
+    x = random.sample(range(1, cat_num), 3)
+    categories = Category.objects.filter(id__in=x)
+    return {
+      'random_categories':categories
+    }
+
+
+    
+

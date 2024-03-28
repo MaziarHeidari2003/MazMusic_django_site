@@ -32,21 +32,11 @@ class Profile(models.Model):
 
 class Category(models.Model):
   name = models.CharField(max_length=255)
+  image = models.ImageField(default='Chick_Corea.jpg')
 
   def __str__(self):
     return self.name
 
-
-class Musician(models.Model):
-  first_name = models.CharField(max_length=255)
-  last_name = models.CharField(max_length=255)
-  birth_date = models.DateField()
-  death_date = models.DateField(null=True, blank=True)
-  legend = models.BooleanField(default=False)
-
-  def __str__(self):
-    return f'{self.first_name} {self.last_name}'
-  
 
 
 
@@ -54,7 +44,6 @@ class Musician(models.Model):
 
 class Post(models.Model):
   title = models.CharField(max_length=255)
-  musician = models.ForeignKey(Musician, models.CASCADE)
   image = models.ImageField()
   content = models.TextField()
   published_date = models.DateTimeField(auto_now_add=True)
@@ -79,7 +68,6 @@ class Post(models.Model):
 class Track(models.Model):
     title = models.CharField(max_length=255)
     duration = models.IntegerField()
-    musician = models.ForeignKey(Musician, models.CASCADE)
     audio_file = models.FileField(default='D:/Programming/Start_Web_Programming_CS50/maz_music/media/Lilac.mp3')
     audio_url = models.URLField(blank=True, null=True)
     post = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True)
@@ -93,7 +81,6 @@ class Track(models.Model):
 class Performance(models.Model):
   date = models.DateField()
   place = models.CharField(max_length=255)
-  performer = models.ForeignKey(Musician, models.CASCADE)
   track = models.ForeignKey(Track, models.CASCADE)
   video_file = models.FileField(null=True)
   video_url = models.URLField(blank=True, null=True)
