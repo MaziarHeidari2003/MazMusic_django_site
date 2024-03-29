@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category,Post,Track, Performance,Comment 
+from .models import Category,Post,Track, Comment 
 
 # Register your models here.
 
@@ -20,7 +20,6 @@ class Comment_admin(admin.ModelAdmin):
 
 
 admin.site.register(Category)
-admin.site.register(Performance)
 admin.site.register(Post, Post_admin)
 admin.site.register(Comment,Comment_admin)
 admin.site.register(Track)

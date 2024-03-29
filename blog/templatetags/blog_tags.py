@@ -63,11 +63,12 @@ def writer_page(pid):
 
 @register.inclusion_tag('blog/random_categories.html')
 def top_categories():
-    cat_num = Category.objects.count()
-    x = random.sample(range(1, cat_num), 3)
-    categories = Category.objects.filter(id__in=x)
-    return {
-      'random_categories':categories
+     categories = list(Category.objects.all())
+     random.shuffle(categories)
+
+     random_categories = categories[:3]
+     return {
+      'random_categories':random_categories
     }
 
 

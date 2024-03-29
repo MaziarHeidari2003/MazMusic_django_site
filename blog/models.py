@@ -78,16 +78,6 @@ class Track(models.Model):
 
 
 
-class Performance(models.Model):
-  date = models.DateField()
-  place = models.CharField(max_length=255)
-  track = models.ForeignKey(Track, models.CASCADE)
-  video_file = models.FileField(null=True)
-  video_url = models.URLField(blank=True, null=True)
-  post = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True)
-
-  def __str__(self):
-    return f'{self.track} played by {self.performer}'
 
 
 

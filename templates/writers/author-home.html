@@ -3,16 +3,26 @@
 {% load humanize %}
 
 {% block content %}
+
 			<!-- start banner Area -->
 			<section class="relative about-banner" id="home">	
 				<div class="overlay overlay-bg"></div>
 				<div class="container">				
 					<div class="row d-flex align-items-center justify-content-center">
 						<div class="about-content col-lg-12">
-							<h1 class="text-white">
-								Elements		
-							</h1>	
-							<p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="elements.html"> Elements</a></p>
+							{% if user_pro %}
+							<h2 class="text-white">
+								You could make some firends!		
+							</h2>	
+							{% else %}
+							<h2 class="text-white">
+								You are not a member of the blog yet!		
+							</h2>	
+							<p class="text-white link-nav"><a id="scroll-to-form" href="#target-form" onclick="scrollToForm()">Fill in them form down the page </a>  <span class="lnr lnr-arrow-right"></span>  <a onclick="scrollToForm()"> Write your own posts</a></p>
+
+							{% endif %}
+						
+							
 						</div>	
 					</div>
 				</div>
@@ -98,12 +108,12 @@
 							
 								
 							{% if profile.user == request.user.id %}
-								<p>bbbbbbbbbbbbbbbbbbbbbbb</p>
+								<p>....</p>
 							{% endif %}
 
 							{% if request.user.is_authenticated %}	
 							
-							<form action="{% url 'writers:membership' %}" enctype="multipart/form-data" method="post">
+							<form  action="{% url 'writers:membership' %}" enctype="multipart/form-data" method="post">
 								{% csrf_token %}
 
 								{% if messages %}
@@ -169,7 +179,7 @@
 
 
 
-							</div>
+							</div >
 							<div class="col-lg-3 col-md-4 mt-sm-30 element-wrap">
 								<div class="single-element-widget">
 									<h3 class="mb-30">Switches</h3>
@@ -203,4 +213,6 @@
 				</div>
 			</div>
 			<!-- End Align Area -->
+
+		
       {% endblock %}

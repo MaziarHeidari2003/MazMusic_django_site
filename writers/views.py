@@ -14,9 +14,10 @@ from blog.models import Post
 
 def writers_view(request):
   profiles = Profile.objects.all()
-  if   Profile.objects.get(user=request.user):
-    print(request.user)
-
+  logged_user = request.user
+  user_pro = False
+  if hasattr(logged_user, 'profile'):
+    user_pro = True
   if request.method == 'POST':
     form = Blog_signup_form(request.POST,request.FILES)
     if form.is_valid():
@@ -42,13 +43,19 @@ def writers_view(request):
 
   return render(request, 'writers/author-home.html', {
     'profiles':profiles,
-    'form':form
+    'form':form,
+    'user_pro':user_pro
   })    
 
 
 
 def writer_posts_view(request):
-  profile = Profile.objects.get(user=request.user)
+  try:
+    profile = Profile.objects.get(user=request.user)
+  except:
+     messages.add_message(request, messages.ERROR, "You should be a blog member to have personal page!")
+     return redirect ('/')
+  
   posts = Post.objects.filter(author=request.user)
   return render (request, 'writers/writer_view.html',{
     'posts':posts,
