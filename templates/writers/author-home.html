@@ -50,21 +50,18 @@
 			<div class="whole-wrap">
 				<div class="container">
 
-					{% for profile in profiles %}
+					{% for user in users %}
 						<div class="section-top-border">
-							<h3 class="mb-30"><a href="{% url 'blog:author' author_name=profile.user.username %}">{{profile.first_name}} {{profile.last_name}}</a></h3>
+							<h3 class="mb-30"><a href="{% url 'blog:author' author_name=user.username %}">{{user.first_name}} {{user.last_name}}</a></h3>
 							<div class="row">
 								<div class="col-md-3">
-									<a href="{% url 'blog:author' author_name=profile.user.username %}">
-										{% if profile.image %}
-											<img src="{{profile.image.url}}" alt="" class="img-fluid">
-										{% else %}
-											<img src="{% static 'img/default_profile.png' %}">
-										{% endif %}
+									<a href="{% url 'blog:author' author_name=user.username %}">
+											<img src="{{user.profile.image.url}}" alt="" class="img-fluid">
+								
 									</a>
 								</div>
 								<div class="col-md-9 mt-sm-20 left-align-p">
-									<p>{{profile.bio}}</p>
+									<p>{{user.profile.bio}}</p>
 								</div>
 							</div>
 						</div>
@@ -104,12 +101,10 @@
 					<div class="section-top-border">
 						<div class="row">
 							<div class="col-lg-8 col-md-8">
-								<h3 class="mb-30">Want to be a blog member?</h3>
+								<h3 class="mb-30">Add more info to your profile</h3>
 							
 								
-							{% if profile.user == request.user.id %}
-								<p>....</p>
-							{% endif %}
+					
 
 							{% if request.user.is_authenticated %}	
 							
@@ -123,15 +118,11 @@
 										{% endfor %}
 								</ul>
 								{% endif %}
-								<div class="mt-10">
-										{{form.first_name}}
-								</div>
+								
 
 								<input type="hidden" name="user" value="{{request.user.id}}">
 
-								<div class="mt-10">
-									{{form.last_name}}
-								</div>
+							
 								<div class="mt-10">
 									{{form.bio}}
 								</div>

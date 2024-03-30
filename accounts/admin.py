@@ -5,7 +5,7 @@ from .models import Profile
 class Profile_admin(admin.ModelAdmin):
 
   empty_value_display = 'it is empty'
-  list_display = ['user', 'first_name','last_name' ]
+  list_display = ['user' ]
   list_filter = ['user']
 
 

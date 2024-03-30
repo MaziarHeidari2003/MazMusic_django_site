@@ -18,11 +18,11 @@ class Signup_form(UserCreationForm):
 
   class Meta:
     model = User
-    fields = ['username','password1','password2','email']	
+    fields = ['username','password1','password2','email','first_name', 'last_name']	
 
 
 
 class Blog_signup_form(ModelForm):
   class Meta:
     model = Profile
-    fields = ['user','first_name','last_name','bio','image']
+    fields = ['bio','image','user']

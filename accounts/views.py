@@ -51,9 +51,11 @@ def signup_view(request):
       form.save()
       return HttpResponseRedirect(reverse('accounts:login'))
     else:
-       print('hffgggggggggggggggggggggggggggg')
-       messages.add_message(request, messages.ERROR, "Something went wrong, please try again!")
-
+        for field, errors in form.errors.items():
+           messages.add_message(request, messages.ERROR, f"Field {field} has the following errors: {errors}")
+           print(f"Field {field} has the following errors: {errors}")
+        print('hffgggggggggggggggggggggggggggg')
+        
       
   form = Signup_form()
   print('44444444444444444444444444444444444444')
@@ -74,6 +76,8 @@ def signup_view(request):
   form.fields['password2'].widget.attrs['placeholder'] = '********'
   form.fields['email'].widget.attrs['class'] = 'input100'
   form.fields['email'].widget.attrs['placeholder'] = 'checkcorea@gmail.com'
+  form.fields['first_name'].widget.attrs['class'] = 'input100'
+  form.fields['last_name'].widget.attrs['class'] = 'input100'
 
   return render(request, 'accounts/signup.html',{
     'form':form

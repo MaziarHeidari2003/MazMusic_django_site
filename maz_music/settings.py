@@ -120,6 +120,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+
+LOGIN_URL = '/accounts/login'  # Replace with the URL path of your login view
+  # Replace with the URL path where users should be redirected after login
+
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static'
 
