@@ -11,7 +11,7 @@
 		<div class="row d-flex align-items-center justify-content-center">
 			<div class="about-content blog-header-content col-lg-12">
 				<h1 class="text-white">
-					Welcome to your own posting page, dear {{profile.first_name}}
+					Welcome to your own posting page, dear {{profile.user.first_name}}
 				</h1>
 				<br>
 				<h4 class="text-white">
@@ -85,7 +85,8 @@
 		<div class="col-lg-8">
 			<form class="form-area contact-form text-right"  enctype="multipart/form-data" action="{% url 'writers:writer_view' %}"  method="post">
 				{% csrf_token %}
-				<input name="author" type="" value="{{request.user.id}}">
+				<input name="author" type="hidden" value="{{request.user.id}}">
+				<input type="hidden" value="its_post" name="form_type">
 
 				<div class="row">	
 					<div class="col-lg-6 form-group">
@@ -166,7 +167,7 @@
 					<br>
 					<br>
 					<a class="posts-title" >
-						<h3>No posts yet? Come on {{profile.first_name}}! Just post something.<br>
+						<h3>No posts yet? Come on {{profile.user.first_name}}! Just post something.<br>
 						Don't be shy!</h3>
 					</a>
 					
@@ -234,7 +235,7 @@
 										{% else %}
 											<img src="{% static 'img/default_profile.png' %}">
 										{% endif %}
-									<a href="#"><h4>{{profile.first_name}} {{profile.last_name}}</h4></a>
+									<a href="#"><h4>{{profile.user.first_name}} {{profile.user.last_name}}</h4></a>
 									<p>
 										Junior blog writer
 									</p>
@@ -245,7 +246,23 @@
 										<li><a href="#"><i class="fa fa-behance"></i></a></li>
 									</ul>
 									<p>
-									{{profile.bio}}
+										{% if profile.bio %}
+											{{profile.bio}}
+										
+										{% else %}
+								
+											<form method="post">
+												
+												{% csrf_token %}
+												<input type="hidden" value="its_bio" name="form_type">
+												<input type="" name="user" value="{{request.user.id}}">
+												{{bform.bio}}	
+												<div class="col-lg-12">
+													<div class="alert-msg" style="text-align: left;"></div>
+													<button type="submit" class="genric-btn primary" style="float: right;">Add some Bio</button>											
+												</div>
+											</form>
+										{% endif %}
 									</p>
 								</div>
 					{% endif %}

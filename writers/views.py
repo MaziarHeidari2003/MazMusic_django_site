@@ -48,34 +48,82 @@ def writers_view(request):
 
 
 
-
+@login_required
 def new_post(request):
-  if request.method == 'POST':
-    form = Post_form(request.POST,request.FILES)
-    if form.is_valid():
-      form.save()
-      return redirect('writer _view')
-    else:
-      for field, errors in form.errors.items():
-         print(f"Field {field} has the following errors: {errors}")
-         messages.add_message(request, messages.ERROR, "Something went wrong, please try again!")
-
-
-  try:
-    profile = Profile.objects.get(user=request.user)
-  except:
-     messages.add_message(request, messages.ERROR, "You should be a blog member to have personal page!")
-     return redirect ('/')
-  
+  profile = Profile.objects.get(user=request.user)
   posts = Post.objects.filter(author=request.user)
+  if request.method == 'POST':
+    if request.POST.get('form_type') == 'its_post':
+      print(request.POST)
+      form = Post_form(request.POST,request.FILES)
+      if form.is_valid():
+        form.save()
+        return redirect('/')
+      else:
+        for field, errors in form.errors.items():
+          print(f"Field {field} has the following errors: {errors}")
+          messages.add_message(request, messages.ERROR, "Something went wrong, please try again!")
 
+    elif request.POST.get('form_type') == 'its_bio':
+        
+        form = Blog_signup_form(request.POST or None,request.FILES or None,instance=profile)
+        if form.is_valid():
+          form.save()
+          return redirect(request.path)
+
+        else:  
+          for field, errors in form.errors.items():
+            print(f"Field {field} has the following errors: {errors}")
+          messages.add_message(request, messages.ERROR, "Something went wrong, please try again!")
+
+
+
+  profile = Profile.objects.get(user=request.user)
+  posts = Post.objects.filter(author=request.user)
   form = Post_form()
   form.fields['title'].widget.attrs['class'] = 'common-input mb-20 form-control'
   form.fields['title'].widget.attrs['placeholder'] = 'Enter the post title'
   form.fields['content'].widget.attrs['class'] = 'common-textarea form-control'
   form.fields['content'].widget.attrs['placeholder'] = 'Enter the content'
+
+
+
+  bform = Blog_signup_form()
+  bform.fields['bio'].widget.attrs['class'] = 'single-textarea'
+  bform.fields['bio'].widget.attrs['placeholder'] = 'a little biography'
+
+
+
   return render(request, 'writers/writer_view.html',{
     'form':form,
     'posts':posts,
-    'profile':profile
+    'profile':profile,
+    'bform':bform
+  })
+
+
+
+
+
+
+
+
+
+
+
+
+def more_info(request):
+  if request.method == 'POST':
+    print(request.POST)
+    form=Blog_signup_form(request.POST, request.FILES)
+    if form.is_valid():
+      form.save()
+    else:
+      for field,errors in form.errors.items():
+        print(f"Field {field} has the following errors: {errors}")
+        messages.add_message(request, messages.ERROR, "Something went wrong, please try again!")
+
+  form = Blog_signup_form()
+  return render(request, 'writers/writer_view.html', {
+    'form':form
   })
