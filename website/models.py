@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-"""
+
 class Instructor(models.Model):
   first_name = models.CharField(max_length=200)
   last_name= models.CharField(max_length=200)
@@ -19,11 +19,10 @@ class Course(models.Model):
   content = models.TextField()
   start_date = models.DateTimeField()
   end_date = models.DateTimeField()
-  instructors = models.ManyToManyField(Instructors)
-  users_roled_in = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+  instructors = models.ManyToManyField(Instructor)
   started_or_not = models.BooleanField(default=False)
   price = models.IntegerField(default=0)
-
+  enrolled_by = models.ManyToManyField(User, blank=True, null=True, related_name='user')
 
 
 
@@ -37,4 +36,3 @@ class Performance(models.Model):
   post = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True)
   instruoctor = models.ForeignKey(Instructor, on_delete=models.SET_NULL, null=True)
 
-"""
