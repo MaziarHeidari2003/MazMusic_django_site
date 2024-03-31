@@ -2238,6 +2238,13 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: none;
 }
 
+.my_div a { 
+  color:white;
+  padding-right: 510px;
+  
+}
+
+
 .nav-menu ul li:hover > a {
   color: #f8b600;
 }

@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import Signup_form, Blog_signup_form
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -82,4 +83,43 @@ def signup_view(request):
   return render(request, 'accounts/signup.html',{
     'form':form
   })
+
+
+
+@login_required
+def update_profile(request):
+  current_user = User.objects.get(id=request.user.id)
+  form = Signup_form(request.POST or None, instance=current_user)
+  if request.method == 'POST':
+
+    if form.is_valid():
+      print('88888888888888888888888888888888888888')
+      form.save()
+      print('999999999999')
+      login(request,current_user)
+      print('81111111111111111111118')
+
+      return redirect('/')
+    else:
+        for field, errors in form.errors.items():
+           messages.add_message(request, messages.ERROR, f"Field {field} has the following errors: {errors}")
+           return(f"Field {field} has the following errors: {errors}")
+        
+      
+  
+  form.fields['password1'].widget.attrs['class'] = 'input100'
+  form.fields['password2'].widget.attrs['class'] = 'input100'
+  form.fields['username'].widget.attrs['class'] = 'input100'
+  form.fields['username'].widget.attrs['placeholder'] = 'ChickCorea1941'
+  form.fields['password1'].widget.attrs['placeholder'] = '********'
+  form.fields['password2'].widget.attrs['placeholder'] = '********'
+  form.fields['email'].widget.attrs['class'] = 'input100'
+  form.fields['email'].widget.attrs['placeholder'] = 'checkcorea@gmail.com'
+  form.fields['first_name'].widget.attrs['class'] = 'input100'
+  form.fields['last_name'].widget.attrs['class'] = 'input100'
+
+  return render(request, 'accounts/update_user.html',{
+    'form':form
+  })
+
 

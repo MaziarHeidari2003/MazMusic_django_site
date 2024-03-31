@@ -26,7 +26,7 @@ def writers_view(request):
       form = Blog_signup_form(request.POST,request.FILES,instance=profile)
       if form.is_valid():
         form.save()
-        return render(request, 'writers/writer_view.html')
+        return redirect(request.path)
 
       else:  
         for field, errors in form.errors.items():
@@ -37,6 +37,8 @@ def writers_view(request):
     form = Blog_signup_form()
     form.fields['bio'].widget.attrs['class'] = 'single-textarea'
     form.fields['bio'].widget.attrs['placeholder'] = 'a little biography'
+
+
     return render(request, 'writers/author-home.html', {
       'profiles':profiles,
       'users':users,
@@ -85,12 +87,15 @@ def new_post(request):
   form.fields['title'].widget.attrs['placeholder'] = 'Enter the post title'
   form.fields['content'].widget.attrs['class'] = 'common-textarea form-control'
   form.fields['content'].widget.attrs['placeholder'] = 'Enter the content'
+  form.fields['category'].widget.attrs['class'] = 'form-group'
+
 
 
 
   bform = Blog_signup_form()
   bform.fields['bio'].widget.attrs['class'] = 'single-textarea'
   bform.fields['bio'].widget.attrs['placeholder'] = 'a little biography'
+
 
 
 
@@ -111,19 +116,3 @@ def new_post(request):
 
 
 
-
-def more_info(request):
-  if request.method == 'POST':
-    print(request.POST)
-    form=Blog_signup_form(request.POST, request.FILES)
-    if form.is_valid():
-      form.save()
-    else:
-      for field,errors in form.errors.items():
-        print(f"Field {field} has the following errors: {errors}")
-        messages.add_message(request, messages.ERROR, "Something went wrong, please try again!")
-
-  form = Blog_signup_form()
-  return render(request, 'writers/writer_view.html', {
-    'form':form
-  })

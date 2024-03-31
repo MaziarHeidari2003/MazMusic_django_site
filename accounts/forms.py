@@ -6,8 +6,6 @@ from django.forms import ModelForm
 
 class Signup_form(UserCreationForm):
   """
-  email = forms.EmailField()
-  last_name= forms.CharField(max_length=120)
   image= forms.ImageField()
 
   """

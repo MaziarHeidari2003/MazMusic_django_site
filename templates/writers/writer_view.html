@@ -95,6 +95,7 @@
 						{{form.category}}
 
 						{{form.image}}
+						<br>
 
 					</div>
 					<div class="col-lg-6 form-group">
@@ -235,7 +236,11 @@
 										{% else %}
 											<img src="{% static 'img/default_profile.png' %}">
 										{% endif %}
+
+
+
 									<a href="#"><h4>{{profile.user.first_name}} {{profile.user.last_name}}</h4></a>
+
 									<p>
 										Junior blog writer
 									</p>
@@ -252,10 +257,10 @@
 										{% else %}
 								
 											<form method="post">
-												
+											
 												{% csrf_token %}
 												<input type="hidden" value="its_bio" name="form_type">
-												<input type="" name="user" value="{{request.user.id}}">
+												<input type="hidden" name="user" value="{{request.user.id}}">
 												{{bform.bio}}	
 												<div class="col-lg-12">
 													<div class="alert-msg" style="text-align: left;"></div>
