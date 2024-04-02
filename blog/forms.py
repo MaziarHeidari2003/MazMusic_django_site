@@ -1,11 +1,5 @@
 from django import forms
-from blog.models import Comment,Category,Post
-
-
-class Comment_form(forms.ModelForm):
-  class Meta:
-    model = Comment
-    fields = ['content','name','email','post']
+from blog.models import Category,Post
 
 
 

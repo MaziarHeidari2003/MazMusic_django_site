@@ -4,6 +4,7 @@
 {% load blog_tags %}
 {% block content %}
 
+
 <!-- start banner Area -->
 <section class="relative about-banner">
 	<div class="overlay overlay-bg"></div>
@@ -67,7 +68,7 @@
 						<p class="excert">
 							{{post.content}}
 						</p>
-
+						
 						<form action="{% url 'blog:like_post' pid=post.id %}" method="post">
 							{% csrf_token %}	
 						{% if user.is_authenticated %}	
@@ -85,18 +86,15 @@
 						</form>
 						{% else %}
 								<a href="{% url 'accounts:login' %}" >Login </a> 	to like
-								
-				
-
+						
 						{% endif %}
 
 					</div>
-					<div class="col-lg-12">
-						<div class="quotes">
-							MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have
-							to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp
-							price. However, who has the willpower to actually sit through a self-imposed MCSE training.
-						</div>
+						
+					{% include 'blog/comments.html' %}
+							 
+
+
 						<div class="row mt-30 mb-30">
 							<div class="col-6">
 								<img class="img-fluid" src="{% static 'img/blog/post-img1.jpg' %}" alt="">
@@ -117,7 +115,7 @@
 								</p>
 							</div>
 						</div>
-					</div>
+					
 				</div>
 				<div class="navigation-area">
 					<div class="row">

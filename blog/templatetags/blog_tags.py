@@ -1,5 +1,5 @@
 from django import template
-from blog.models import Post,Category,Comment
+from blog.models import Post,Category
 from accounts.models import Profile
 from django.db.models import Count
 import random
@@ -37,8 +37,7 @@ def popular_posts():
 @register.simple_tag(name='comments_count')
 def func(pid):
   post = Post.objects.get(pk=pid)
-  return Comment.objects.filter(post=post.id, approved=True).count()
-
+ 
 
 
 

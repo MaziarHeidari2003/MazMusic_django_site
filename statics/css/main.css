@@ -3686,8 +3686,33 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .widget-wrap .popular-post-widget .popular-post-list .thumb img {
-  width: 100%;
+  width: 180px;
+  height: 95px;
+  object-fit: cover;
 }
+
+
+
+.my-comment-card .gradient-custom {
+  width: 905px;
+
+
+}
+
+.my-comment-card h4 {
+  background: #f8b600;
+  color: #fff;
+  text-align: center;
+  padding: 12px 0px;
+  width: 58%;
+  margin-left: 110px;
+}
+
+.my-comment-card .gradient-custom img{
+  margin-right: 12px;
+
+}
+
 
 .widget-wrap .popular-post-widget .single-post-list {
   margin-bottom: 20px;

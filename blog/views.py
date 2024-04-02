@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Post,Track,Category,Comment
+from .models import Post,Track,Category
+from comment.models import Comment
 from accounts.models import Profile
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from blog.forms import Comment_form
+from comment.forms import Comment_form
 
 
 # Create your views here.
@@ -71,36 +72,42 @@ def blog_view(request, **kwargs):
 
 
 def blog_single(request,pid):
-
-  if request.method == 'POST':
-    form = Comment_form(request.POST)
-    if form.is_valid():
-      form.save()
-      messages.add_message(request, messages.SUCCESS, "Your comment added succesfully")
-
-    else:
-       messages.add_message(request, messages.ERROR, "Something went wrong with ypur comment!")
-    
-  categories = Category.objects.all()
   post = Post.objects.get(pk=pid)
+  current_user = request.user
+  print(current_user)
+  comments = Comment.objects.filter(post=post).order_by('-date')
+  if request.method == 'POST':
+    form = Comment_form(request.POST, request.FILES)
+    if form.is_valid():
+      print('sssssssssssssssssssssssss')
+      comment = form.save(commit=False)
+      comment.post = post
+      comment.commenter = current_user
+      comment.save()
+      return HttpResponseRedirect(reverse('blog:single',args=(post.id,)))
+    else:
+      for errors,feild in form.errors:
+        print(f'{errors} in {feild}')
+
+  form = Comment_form()
+  form.fields['content'].widget.attrs['class'] = 'form-control mb-10'
+  form.fields['content'].widget.attrs['rows'] = '5'
+
+  categories = Category.objects.all()
   profile = Profile.objects.get(user=post.author)
   tracks = Track.objects.filter(post=post.id)
-  form = Comment_form()
-  comments = Comment.objects.filter(post=post.id, approved=True)
-
   liked = False
-
   if post.likes.filter(id=request.user.id).exists():
     liked=True
 
  
 
   return render(request, 'blog/blog-single.html', {
+    'form':form,
+    'comments':comments,
       'post':post,
       'tracks':tracks,
       'categories':categories,
-      'comments':comments,
-      'form':form,
       'liked':liked,
       'profile':profile
     })
