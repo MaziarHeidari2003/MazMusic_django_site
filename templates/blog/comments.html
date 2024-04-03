@@ -34,7 +34,7 @@
                         <form action="{% url 'blog:single' pid=post.id %}" method="post">
                           {% csrf_token %}
                           <input type="hidden" value="{{request.user.id}}">
-                          <input type="hidden" value="ist_comment" name="form_type">
+                          <input type="hidden" value="its_comment" name="form_type">
 
                           <div class="form-group ">
                             {{form.content}}
@@ -76,19 +76,7 @@
                             {{comment.commenter}}  <span class="small">{{comment.date|naturaltime}}</span>
                           </p>
                           <div></div>
-                          <form method="post" action="{% url 'blog:reply_comment' comment.id %}">
-
-                            {% csrf_token %}
-                            <input type="hidden" value="its_reply" name="form_type">
-
-                              <div class='reply-button'>
-                                <button class="btn btn-warning" type="submit"><span class="small">Reply</span>
-                                </button>
-                              </div>
-                          
-                          </form>
-
-
+                      
 
                              {% if request.user.is_authenticated and comment.commenter == request.user %}
                             <form action="{% url 'blog:delete_comment' comment.id %}" method="post">
@@ -107,10 +95,37 @@
                         <p class="small mb-0">
                         {{comment.content}}
                         </p>
-                        {{rform.content}}
+
+                        <div  >
+                          <div style="width:100%">
+                            <form method="post" action="{% url 'blog:reply_comment' pk=comment.id %}">
+                            
+
+                              {% csrf_token %}
+                              <input type="hidden" value="its_reply" name="form_type">
+                              {{rform.content}}
+    
+                          </div>
+                        </div>
+
+                              <div class='reply-button' style="margin-bottom: 12px; ">
+  
+                                <button class="btn btn-warning" type="submit"><span class="small">Reply</span>
+                                </button>
+                              </div>
+                          
+                          </form>
+
+
+                        
+
+
+
+
                       </div>
+                      {% for rep in comment.replies.all %}
+
                       <div class="d-flex flex-start mt-4">
-                        {% for rep in comment.replies.all %}
                         <a class="me-3" href="#">
                           <img class="rounded-circle shadow-1-strong"
                             src="{{rep.replier.profile.image.url}}" alt="avatar"
@@ -128,9 +143,10 @@
                             </p>
                           </div>
                         </div>
-                        {% endfor %}
-
+                        
                       </div>
+                      {% endfor %}
+
                     </div>
                   </div>
   

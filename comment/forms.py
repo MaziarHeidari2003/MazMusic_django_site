@@ -3,7 +3,7 @@ from .models import Comment,Reply
 
 
 class Comment_form(forms.ModelForm):
-  content = forms.CharField(widget=forms.TextInput(attrs={'class':'input','placeholder':'enter comment'}), required=True)
+  content = forms.CharField(widget=forms.TextInput(attrs={'class':'input','placeholder':'enter comment'}))
 
   class Meta:
     model = Comment

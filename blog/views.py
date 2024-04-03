@@ -101,13 +101,17 @@ def blog_single(request,pid):
         comment.save()
         return HttpResponseRedirect(reverse('blog:single',args=(post.id,)))
       else:
-        for errors,feild in form.errors:
+        for errors,feild in form.errors.items():
           print(f'{errors} in {feild}')
 
   form = Comment_form()
   form.fields['content'].widget.attrs['class'] = 'form-control mb-10'
   form.fields['content'].widget.attrs['rows'] = '5'
   rform = Reply_form()
+  rform.fields['content'].widget.attrs['class'] = 'form-control mb-10'
+  rform.fields['content'].widget.attrs['rows'] = '5'
+  rform.fields['content'].widget.attrs['width'] = '100%'
+
   categories = Category.objects.all()
   profile = Profile.objects.get(user=post.author)
   tracks = Track.objects.filter(post=post.id)
@@ -135,18 +139,21 @@ def reply_comment(request,pk):
 
   if request.method == 'POST':
     if request.POST.get('form_type') == 'its_reply':
+      print(request.POST.get('form_type'))
 
-      form = Reply_form(request.POST)
+      form = Reply_form(request.POST,request.FILES)
+      print(request.POST.get('form_type'))
+
       if form.is_valid():
         reply = form.save(commit=False)
         reply.replier = request.user
         reply.parent_comment=comment
         reply.save()
       else:
-        for errors,field in form.errors.items():
-          print(f'{errors} in {field}')
+        for field, errors in form.errors.items():
+          print(f"Field {field} has the following errors: {errors}")
 
-    return HttpResponseRedirect(reverse('blog:single',args=(post,)))
+      return HttpResponseRedirect(reverse('blog:single',args=(post,)))
  
 
 

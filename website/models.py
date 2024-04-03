@@ -13,13 +13,18 @@ class Instructor(models.Model):
   musical_biography = models.TextField()
   image = models.ImageField(default='Bill_Evans')
 
+  def __str__(self):
+    return f'{self.first_name} {self.last_name} '
+
+
 class Course(models.Model):
+  image= models.ImageField(default='bill_evans2.jpg')
   name = models.CharField(max_length=255)
   duration = models.IntegerField()
   content = models.TextField()
   start_date = models.DateTimeField()
   end_date = models.DateTimeField()
-  instructors = models.ManyToManyField(Instructor)
+  instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
   started_or_not = models.BooleanField(default=False)
   price = models.IntegerField(default=0)
   enrolled_by = models.ManyToManyField(User, blank=True, null=True, related_name='user')
