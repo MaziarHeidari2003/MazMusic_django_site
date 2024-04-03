@@ -1,12 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from .models import Post,Track,Category
-from comment.models import Comment
+from comment.models import Comment, Reply
 from accounts.models import Profile
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from comment.forms import Comment_form
+from comment.forms import Comment_form,Reply_form
 
 
 # Create your views here.
@@ -21,6 +21,15 @@ def like_view(request, pid):
     post.likes.add(request.user)
     liked=True
   return HttpResponseRedirect(reverse('blog:single', args=[str(pid)]))
+
+
+
+
+def comment_delete_view(request, pk):
+        comment = get_object_or_404(Comment, id=pk, commenter=request.user)
+        post_id = comment.post.id 
+        comment.delete()  # Delete the comment from the database
+        return HttpResponseRedirect(reverse('blog:single', args=(post_id,)))
 
 
 
@@ -71,28 +80,34 @@ def blog_view(request, **kwargs):
     })
 
 
+
+
+
 def blog_single(request,pid):
   post = Post.objects.get(pk=pid)
   current_user = request.user
-  print(current_user)
   comments = Comment.objects.filter(post=post).order_by('-date')
   if request.method == 'POST':
-    form = Comment_form(request.POST, request.FILES)
-    if form.is_valid():
-      print('sssssssssssssssssssssssss')
-      comment = form.save(commit=False)
-      comment.post = post
-      comment.commenter = current_user
-      comment.save()
-      return HttpResponseRedirect(reverse('blog:single',args=(post.id,)))
-    else:
-      for errors,feild in form.errors:
-        print(f'{errors} in {feild}')
+    if request.POST.get('form_type') == 'its_comment':
+      print(current_user)
+
+
+      form = Comment_form(request.POST, request.FILES)
+      if form.is_valid():
+        print('sssssssssssssssssssssssss')
+        comment = form.save(commit=False)
+        comment.post = post
+        comment.commenter = current_user
+        comment.save()
+        return HttpResponseRedirect(reverse('blog:single',args=(post.id,)))
+      else:
+        for errors,feild in form.errors:
+          print(f'{errors} in {feild}')
 
   form = Comment_form()
   form.fields['content'].widget.attrs['class'] = 'form-control mb-10'
   form.fields['content'].widget.attrs['rows'] = '5'
-
+  rform = Reply_form()
   categories = Category.objects.all()
   profile = Profile.objects.get(user=post.author)
   tracks = Track.objects.filter(post=post.id)
@@ -100,10 +115,10 @@ def blog_single(request,pid):
   if post.likes.filter(id=request.user.id).exists():
     liked=True
 
- 
 
   return render(request, 'blog/blog-single.html', {
     'form':form,
+    'rform':rform,
     'comments':comments,
       'post':post,
       'tracks':tracks,
@@ -112,6 +127,27 @@ def blog_single(request,pid):
       'profile':profile
     })
 
+
+
+def reply_comment(request,pk):
+  comment = get_object_or_404(Comment,id=pk)
+  post =  comment.post.id
+
+  if request.method == 'POST':
+    if request.POST.get('form_type') == 'its_reply':
+
+      form = Reply_form(request.POST)
+      if form.is_valid():
+        reply = form.save(commit=False)
+        reply.replier = request.user
+        reply.parent_comment=comment
+        reply.save()
+      else:
+        for errors,field in form.errors.items():
+          print(f'{errors} in {field}')
+
+    return HttpResponseRedirect(reverse('blog:single',args=(post,)))
+ 
 
 
 def blog_search(request):

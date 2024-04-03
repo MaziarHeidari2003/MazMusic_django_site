@@ -3708,6 +3708,13 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin-left: 110px;
 }
 
+.reply-button {
+  margin-left: 230px;
+}
+.reply-button button {
+  color:white
+}
+
 .my-comment-card .gradient-custom img{
   margin-right: 12px;
 

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment
+from .models import Comment,Reply
 
 
 class Comment_form(forms.ModelForm):
@@ -8,3 +8,12 @@ class Comment_form(forms.ModelForm):
   class Meta:
     model = Comment
     fields = ['content']
+
+
+class Reply_form(forms.ModelForm):
+  class Meta:
+    model = Reply
+    fields =['content']
+    widgets = {
+      'content': forms.TextInput(attrs={'placeholder':'Add reply ...'})
+    }
