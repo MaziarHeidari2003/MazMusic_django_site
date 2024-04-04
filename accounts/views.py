@@ -21,6 +21,10 @@ def login_view(request):
       user = authenticate(request, username=username, password=password)
       if user is not None:
         login(request,user)
+        if 'next' in request.POST:
+          print(request.POST.get('next'))
+          return redirect(request.POST.get('next'))
+       
         return redirect('/')
       
     else:
@@ -50,7 +54,11 @@ def signup_view(request):
     form = Signup_form(request.POST)
     if form.is_valid():
       form.save()
-      return HttpResponseRedirect(reverse('accounts:login'))
+      username=form.cleaned_data.get('username')
+      password=form.cleaned_data.get('password1')
+      user = authenticate(request, username=username, password=password)
+      login(request,user)
+      return redirect('/')
     else:
         for field, errors in form.errors.items():
            messages.add_message(request, messages.ERROR, f"Field {field} has the following errors: {errors}")

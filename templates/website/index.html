@@ -42,7 +42,7 @@
 									<img class="img-fluid" src="{{course.image.url}}" alt="">
 								</div>
 								<div class="desc">	
-									<a  href="#" class="price-btn">Toman{{course.price}}</a>			
+									<a  href="{% url 'website:single' cid=course.id %}" class="price-btn">Toman{{course.price}}</a>			
 									<h4 style="color:rgb(211, 214, 5)">{{course.name}}</h4>
 									<p style="color:rgb(211, 214, 5)">{{course.instructor}}</p>			
 								</div>
@@ -89,7 +89,7 @@
 								We will be glad to help you out.
 								Let us know what kind of course you need and help us with providing the bet service.
 							</p>
-							<a href="#" class="primary-btn text-uppercase">request custom price</a>
+							<a href="{% url 'website:contact' %}" class="primary-btn text-uppercase">Send us an email</a>
 						</div>
 						<div class="col-lg-6 col-md-12 home-about-	right no-padding">
 							<img style="width:600px; height: 460px; object-fit: cover;"  class="img-fluid" src="{% static 'img/blog/pianist2.jpg' %}" alt="">

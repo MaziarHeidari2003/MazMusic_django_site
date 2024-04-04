@@ -12,10 +12,10 @@
 		<div class="row d-flex align-items-center justify-content-center">
 			<div class="about-content col-lg-12">
 				<h1 class="text-white">
-					Blog Details Page
+					{{post.title}}
 				</h1>
-				<p class="text-white link-nav"><a href="index.html">Home </a> <span class="lnr lnr-arrow-right"></span><a
-						href="blog-home.html">Blog </a> <span class="lnr lnr-arrow-right"></span> <a href="blog-single.html"> Blog
+				<p class="text-white link-nav"><a href="{% url 'website:index' %}">Home </a> <span class="lnr lnr-arrow-right"></span><a
+						href="{% url 'blog:index' %}">Blog </a> <span class="lnr lnr-arrow-right"></span> <a href="blog-single.html"> Blog
 						Details Page</a></p>
 			</div>
 		</div>
@@ -68,10 +68,10 @@
 						<p class="excert">
 							{{post.content}}
 						</p>
-						
+						{% if user.is_authenticated %}	
+
 						<form action="{% url 'blog:like_post' pid=post.id %}" method="post">
 							{% csrf_token %}	
-						{% if user.is_authenticated %}	
 										{% if liked %}
 											<button type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger btn-sm">Unlike</button>							- {{post.total_likes}} likes
 
@@ -85,7 +85,7 @@
 						
 						</form>
 						{% else %}
-								<a href="{% url 'accounts:login' %}" >Login </a> 	to like
+								<button class="btn btn-warning" ><a href="{% url 'accounts:login' %}">Login</a> </button> 	to like
 						
 						{% endif %}
 
@@ -117,102 +117,8 @@
 						</div>
 					
 				</div>
-				<div class="navigation-area">
-					<div class="row">
-						<div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
-							<div class="thumb">
-								<a href="#"><img class="img-fluid" src="{% static 'img/blog/prev.jpg' %}" alt=""></a>
-							</div>
-							<div class="arrow">
-								<a href="#"><span class="lnr text-white lnr-arrow-left"></span></a>
-							</div>
-							<div class="detials">
-								<p>Prev Post</p>
-								<a href="#">
-									<h4>Space The Final Frontier</h4>
-								</a>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
-							<div class="detials">
-								<p>Next Post</p>
-								<a href="#">
-									<h4>Telescopes 101</h4>
-								</a>
-							</div>
-							<div class="arrow">
-								<a href="#"><span class="lnr text-white lnr-arrow-right"></span></a>
-							</div>
-							<div class="thumb">
-								<a href="#"><img class="img-fluid" src="{% static 'img/blog/next.jpg' %}" alt=""></a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="comments-area">
-					<h4>{{comments|length}} Comments</h4>
-
-
-
-					<div class="comment-list">
-						{% for comment in comments %}
-						<div class="single-comment justify-content-between d-flex">
-
-
-							<div class="user justify-content-between d-flex">
-								<div class="thumb">
-									<img src="{% static 'img/blog/c4.jpg' %}" alt="">
-								</div>
-								<div class="desc">
-									<h5><a href="#">{{comment.name}}</a></h5>
-									<p class="date">{{comment.created_date}}</p>
-									<p class="comment">
-										{{comment.content}}
-									</p>
-								</div>
-							</div>
-							<div class="reply-btn">
-								<a href="" class="btn-reply text-uppercase">reply</a>
-								
-							</div>
-						
-						</div>
-						{% empty %}
-						<p>No comments yet, be the first one to say something</p>
-						{% endfor %}
-					</div>
-					<div class="comment-list">
-
-					</div>
-				</div>
-				<div class="comment-form">
-					<h4>Leave a Comment</h4>
-			
-						<form action="{% url 'blog:single' pid=post.id %}", method="post">
-						{% csrf_token %}
-						<input type="hidden" name="post" value="{{post.id}}">
-
-						<div class="form-group form-inline">
-							<div class="form-group col-lg-6 col-md-12 name">
-								<input type="text" class="form-control" name="name" placeholder="Enter Name"
-									onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Name'">
-							</div>
-							<div class="form-group col-lg-6 col-md-12 email">
-								<input type="email" class="form-control" name="email" placeholder="Enter email address"
-									onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
-							</div>
-						</div>
-						<div class="form-group">
-							
-						</div>
-						<div class="form-group">
-							<textarea class="form-control mb-10" rows="5" name="content" placeholder="Messege"
-								onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
-						</div>
-						<button type="submit" class="primary-btn text-uppercase">Post Comment</button>
-					</form>
-					
-				</div>
+		
+	
 			</div>
 			<div class="col-lg-4 sidebar-widgets">
 				<div class="widget-wrap">
@@ -228,7 +134,7 @@
 
 <div class="single-sidebar-widget user-info-widget">
   <img class="bitch" src="{{profile.image.url}}" alt="">
-  <a href="{% url 'blog:author' author_name=post.author.username %}"><h4>{{profile.first_name}} {{profile.last_name}}</h4></a>
+  <a href="{% url 'blog:author' author_name=post.author.username %}"><h4>{{profile.user.first_name}} {{profile.user.last_name}}</h4></a>
   <p>
     Junior blog writer
   </p>
@@ -256,23 +162,6 @@
 
 
 
-					<div class="single-sidebar-widget tag-cloud-widget">
-						<h4 class="tagcloud-title">Tag Clouds</h4>
-						<ul>
-							<li><a href="#">Technology</a></li>
-							<li><a href="#">Fashion</a></li>
-							<li><a href="#">Architecture</a></li>
-							<li><a href="#">Fashion</a></li>
-							<li><a href="#">Food</a></li>
-							<li><a href="#">Technology</a></li>
-							<li><a href="#">Lifestyle</a></li>
-							<li><a href="#">Art</a></li>
-							<li><a href="#">Adventure</a></li>
-							<li><a href="#">Food</a></li>
-							<li><a href="#">Lifestyle</a></li>
-							<li><a href="#">Adventure</a></li>
-						</ul>
-					</div>
 				</div>
 			</div>
 		</div>

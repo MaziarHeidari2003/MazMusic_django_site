@@ -27,7 +27,7 @@ class Course(models.Model):
   instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
   started_or_not = models.BooleanField(default=False)
   price = models.IntegerField(default=0)
-  enrolled_by = models.ManyToManyField(User, blank=True, null=True, related_name='user')
+  enrolled_by = models.ManyToManyField(User, blank=True, related_name='user')
 
 
 
@@ -41,3 +41,13 @@ class Performance(models.Model):
   post = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True)
   instruoctor = models.ForeignKey(Instructor, on_delete=models.SET_NULL, null=True)
 
+
+
+
+class User_message(models.Model):
+  user_name = models.CharField(max_length=255)
+  message = models.TextField()
+  email = models.EmailField()
+
+  def __str__(self):
+    return f'{self.user_name} : {self.message[:50]}'

@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from comment.forms import Comment_form,Reply_form
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -87,10 +88,11 @@ def blog_single(request,pid):
   post = Post.objects.get(pk=pid)
   current_user = request.user
   comments = Comment.objects.filter(post=post).order_by('-date')
+  comments_count = comments.count()
+  replies_count = Reply.objects.filter(parent_comment__post=post).count()
+  total_comments = replies_count+comments_count
   if request.method == 'POST':
     if request.POST.get('form_type') == 'its_comment':
-      print(current_user)
-
 
       form = Comment_form(request.POST, request.FILES)
       if form.is_valid():
@@ -115,6 +117,7 @@ def blog_single(request,pid):
   categories = Category.objects.all()
   profile = Profile.objects.get(user=post.author)
   tracks = Track.objects.filter(post=post.id)
+
   liked = False
   if post.likes.filter(id=request.user.id).exists():
     liked=True
@@ -128,11 +131,13 @@ def blog_single(request,pid):
       'tracks':tracks,
       'categories':categories,
       'liked':liked,
-      'profile':profile
+      'profile':profile,
+      'request':request,
+      'total_comments':total_comments
     })
 
 
-
+@login_required
 def reply_comment(request,pk):
   comment = get_object_or_404(Comment,id=pk)
   post =  comment.post.id
@@ -154,7 +159,8 @@ def reply_comment(request,pk):
           print(f"Field {field} has the following errors: {errors}")
 
       return HttpResponseRedirect(reverse('blog:single',args=(post,)))
- 
+  return HttpResponseRedirect(reverse('blog:single',args=(post,)))
+
 
 
 def blog_search(request):

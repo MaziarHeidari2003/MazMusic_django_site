@@ -3,11 +3,18 @@ from blog.models import Post,Category
 from accounts.models import Profile
 from django.db.models import Count
 import random
+from urllib.parse import unquote
 
 
 
 register = template.Library()
 
+
+
+
+@register.simple_tag
+def get_current_url(request):
+    return unquote(request.build_absolute_uri())
 
 @register.inclusion_tag('blog/post-categories.html')
 def post_categories():

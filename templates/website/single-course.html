@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+  {% block content %}
+			
+			  
+			<!-- start banner Area -->
+			<section class="about-banner relative">
+				<div class="overlay overlay-bg"></div>
+				<div class="container">				
+					<div class="row d-flex align-items-center justify-content-center">
+						<div class="about-content col-lg-12">
+							<h1 class="text-white">
+								About Us				
+							</h1>	
+							<p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="about.html"> About Us</a></p>
+						</div>	
+					</div>
+				</div>
+			</section>
+			<!-- End banner Area -->	
+
+			<!-- Start about-info Area -->
+			<section class="about-info-area section-gap">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-lg-6 info-left">
+							<img class="img-fluid" src="{{course.image.url}}" alt="">
+						</div>
+						<div class="col-lg-6 info-right">
+							<h5>{{course.duration}} hours course</h5>
+
+							<h1>{{course.name}}</h1>
+							<p>
+							{{course.content}}
+							</p>
+							<h5>Instructer: {{course.instructor}}</h5>
+
+						</div>
+					</div>
+				</div>	
+			</section>
+			<!-- End about-info Area -->
+			
+			<!-- Start other-issue Area -->
+	
+			<!-- End other-issue Area -->
+
+  {% endblock %}      

@@ -12,7 +12,7 @@
 							<h1 class="text-white">
 								About Us				
 							</h1>	
-							<p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="about.html"> About Us</a></p>
+							<p class="text-white link-nav"><a href="{% url 'website:index' %}">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href=""> About Us</a></p>
 						</div>	
 					</div>
 				</div>
@@ -24,13 +24,22 @@
 				<div class="container">
 					<div class="row align-items-center">
 						<div class="col-lg-6 info-left">
-							<img class="img-fluid" src="{% static 'img/about/info-img.jpg' %}" alt="">
+							<img class="img-fluid" src="{% static 'img/about/maziar_heidari.jpg' %}" alt="">
 						</div>
 						<div class="col-lg-6 info-right">
-							<h6>About Us</h6>
+							<h6>About Us/Me</h6>
 							<h1>Who We Are?</h1>
 							<p>
-								Here, I focus on a range of items and features that we use in life without giving them a second thought. such as Coca Cola. Dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+								So there is no team here, its just me, Maziar!
+								Im studying CS Engineering at Shirz Univesity of Technology and i actually im so much into music.
+								Im going to a computer man? or a musicain ? Or just a random guy who likes abstract things?
+								Well god knows. I'm implementing this website and blog so that i can shre my interests in bth fields of Music and Computer.
+							</p>
+							<p>
+								So the webiste is meant to represent some fake! courses which are instructed by some masters and actually you can enroll for an insanely low amount of money. You can see a bio of the course and instructer too.
+							</p>
+							<p>
+								You can become a blog member and be a post_writer for my blog. It would be a pleasure to host you here.Don't be shy just <a href="{% url 'accounts:login' %}">Login</a> and publish your very first post!
 							</p>
 						</div>
 					</div>
@@ -39,7 +48,9 @@
 			<!-- End about-info Area -->
 			
 			<!-- Start other-issue Area -->
-			<section class="other-issue-area section-gap">
+
+			<!--
+					<section class="other-issue-area section-gap">
 				<div class="container">
 		            <div class="row d-flex justify-content-center">
 		                <div class="menu-content pb-70 col-lg-9">
@@ -105,6 +116,10 @@
 					</div>
 				</div>	
 			</section>
+
+
+			-->
+		
 			<!-- End other-issue Area -->
 
   {% endblock %}      
