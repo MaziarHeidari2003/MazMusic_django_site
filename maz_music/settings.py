@@ -42,8 +42,12 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'django.contrib.humanize',
     'writers',
-    'comment'
+    'comment',
+    'django.contrib.sites',
+    'django.contrib.sitemaps'
 ]
+
+SITE_ID = 2
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

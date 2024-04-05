@@ -11,11 +11,10 @@
 		<div class="row d-flex align-items-center justify-content-center">
 			<div class="about-content blog-header-content col-lg-12">
 				<h1 class="text-white">
-					Dude You’re Getting
-					a Telescope
+					 The Posts published by our members/friends
 				</h1>
 				<p class="text-white">
-					There is a moment in the life of any aspiring astronomer that it is time to buy that first
+					Once you fall in love with music, you've started a beautiful journey 
 				</p>
 			</div>
 		</div>
@@ -58,13 +57,13 @@
 						<div class="user-details row">
 							<p class="user-name col-lg-12 col-md-12 col-6"><a
 									href="{% url 'blog:author' author_name=post.author %}">{{post.author.username}}</a> <span class="lnr lnr-user"></span></p>
-							<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{post.published_date|naturaltime}}</a> <span
+							<p class="date col-lg-12 col-md-12 col-6"><a href="{% url 'blog:single' pid=post.id %}">{{post.published_date|naturaltime}}</a> <span
 									class="lnr lnr-calendar-full"></span></p>
-							<p class="view col-lg-12 col-md-12 col-6"><a href="#">{{post.counted_views}}</a> <span
+							<p class="view col-lg-12 col-md-12 col-6"><a href="{% url 'blog:single' pid=post.id %}">{{post.counted_views}}</a> <span
 									class="lnr lnr-eye"></span></p>
-							<p class="comments col-lg-12 col-md-12 col-6"><a href="#">{% comments_count post.id %} Comments</a> <span
+							<p class="comments col-lg-12 col-md-12 col-6"><a href="{% url 'blog:single' pid=post.id %}">{% comments_count post.id %} Comments</a> <span
 									class="lnr lnr-bubble"></span></p>
-									<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{post.total_likes}} likes</a> <span
+									<p class="date col-lg-12 col-md-12 col-6"><a href="{% url 'blog:single' pid=post.id %}">{{post.total_likes}} likes</a> <span
 										class="lnr lnr-calendar-full"></span></p>
 						</div>
 					</div>
@@ -83,6 +82,18 @@
 						</a>
 					</div>
 				</div>
+				{% empty %}
+				<div class="col-lg-9 col-md-9 ">
+
+				<div class="feature-img">
+					<img class="img-fluid" src="{% static 'img/blog/pianist2.jpg' %}" alt="">
+				</div>
+				<hr>
+				<p>Oops Nothing was found!</p>
+					<h4> Be the first one to post your interests!</h4>
+					<hr>
+					<a class="btn btn-warning" href="{% url 'writers:writer_view' %}">Create Post</a>
+				</div>
 				{% endfor %}
 				
 				{% if profile.user == request.user %}
@@ -90,57 +101,8 @@
 				<div class="container">
 					<div class="row">
 						
-						<div class="col-lg-4 d-flex flex-column address-wrap">
-							<div class="single-contact-address d-flex flex-row">
-								<div class="icon">
-									<span class="lnr lnr-home"></span>
-								</div>
-								<div class="contact-details">
-									<h5>Binghamton, New York</h5>
-									<p>
-										4343 Hinkle Deegan Lake Road
-									</p>
-								</div>
-							</div>
-							<div class="single-contact-address d-flex flex-row">
-								<div class="icon">
-									<span class="lnr lnr-phone-handset"></span>
-								</div>
-								<div class="contact-details">
-									<h5>00 (958) 9865 562</h5>
-									<p>Mon to Fri 9am to 6 pm</p>
-								</div>
-							</div>
-							<div class="single-contact-address d-flex flex-row">
-								<div class="icon">
-									<span class="lnr lnr-envelope"></span>
-								</div>
-								<div class="contact-details">
-									<h5>support@colorlib.com</h5>
-									<p>Send us your query anytime!</p>
-								</div>
-							</div>														
-						</div>
-						<div class="col-lg-8">
-							<form class="form-area contact-form text-right" id="myForm" action="mail.php" method="post">
-								<div class="row">	
-									<div class="col-lg-6 form-group">
-										<input name="name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" class="common-input mb-20 form-control" required="" type="text">
-									
-										<input name="email" placeholder="Enter email address" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" class="common-input mb-20 form-control" required="" type="email">
-
-										<input name="subject" placeholder="Enter subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter subject'" class="common-input mb-20 form-control" required="" type="text">
-									</div>
-									<div class="col-lg-6 form-group">
-										<textarea class="common-textarea form-control" name="message" placeholder="Enter Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Messege'" required=""></textarea>				
-									</div>
-									<div class="col-lg-12">
-										<div class="alert-msg" style="text-align: left;"></div>
-										<button class="genric-btn primary" style="float: right;">Send Message</button>											
-									</div>
-								</div>
-							</form>	
-						</div>
+				
+			
 					</div>
 				</div>	
 			</section>
@@ -226,7 +188,6 @@
 					{% include 'blog/ads.html' %}
 					{% popular_posts %}
 					{% post_categories %}
-					{% include 'blog/newsletter.html' %}
 
 
 
@@ -236,23 +197,6 @@
 
 
 
-					<div class="single-sidebar-widget tag-cloud-widget">
-						<h4 class="tagcloud-title">Tag Clouds</h4>
-						<ul>
-							<li><a href="#">Technology</a></li>
-							<li><a href="#">Fashion</a></li>
-							<li><a href="#">Architecture</a></li>
-							<li><a href="#">Fashion</a></li>
-							<li><a href="#">Food</a></li>
-							<li><a href="#">Technology</a></li>
-							<li><a href="#">Lifestyle</a></li>
-							<li><a href="#">Art</a></li>
-							<li><a href="#">Adventure</a></li>
-							<li><a href="#">Food</a></li>
-							<li><a href="#">Lifestyle</a></li>
-							<li><a href="#">Adventure</a></li>
-						</ul>
-					</div>
 				</div>
 			</div>
 		</div>

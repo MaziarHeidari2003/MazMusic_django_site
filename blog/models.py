@@ -2,30 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
-
-
-# Create your models here.
-"""
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
-
-    def __str__(self):
-        return f'{self.user.username} Profile'
-
-    def save(self, *args, **kwargs):
-        if self.profile_picture:
-            # Use the user's username as part of the image file path
-            # You can customize the file path as per your requirements
-            self.profile_picture.storage.delete(self.profile_picture.name)
-            self.profile_picture.storage.save(self.user.username + '.jpg', self.profile_picture)
-
-        super(Profile, self).save(*args, **kwargs)
-
-
-
-"""
+from django.urls import reverse
 
 
 
@@ -56,13 +33,16 @@ class Post(models.Model):
 
   def total_likes(self):
      return self.likes.count()
-
-
+  
+  
   class Meta:
      ordering = ['published_date']
 
   def __str__(self):
     return self.title
+  
+  def get_absolute_url(self):
+     return reverse('blog:single',kwargs={'pid':self.id})
   
 
 class Track(models.Model):

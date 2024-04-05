@@ -71,10 +71,17 @@
 							{% if request.user.is_authenticated %}
               	<a href="{% url 'writers:writer_view' %}"><img src="{{user.profile.image.url}}" alt="" title="New Post" />
 								</a>
+								{% else %}
+								<a href="{% url 'accounts:login' %}"><img src="{% static 'img/default_profile.png' %}" alt="" title="New Post" />
+								</a>
 							{% endif %}
 
             </div>
-						<div class="my_div"><a  href="{% url 'accounts:update_profile' %}">Update Profile</a></div>
+						{% if request.user.is_authenticated %}
+							<div class="my_div"><a  href="{% url 'accounts:update_profile' %}">Update Profile</a></div>
+						{% else %}	
+							<div style="margin-left: -21px;" class="my_div"><a  href="{% url 'accounts:login' %}">Build your Own Profile</a></div>
+						{% endif %}	
             <nav id="nav-menu-container">
               <ul class="nav-menu">
                 <li><a href="{% url 'website:index' %}">Home</a></li>

@@ -4,6 +4,7 @@ from accounts.models import Profile
 from django.db.models import Count
 import random
 from urllib.parse import unquote
+from comment.models import Comment,Reply
 
 
 
@@ -43,8 +44,12 @@ def popular_posts():
 
 @register.simple_tag(name='comments_count')
 def func(pid):
-  post = Post.objects.get(pk=pid)
- 
+    post = Post.objects.get(id=pid)
+    comments = Comment.objects.filter(post=post)
+    comments_count = comments.count()
+    replies_count = Reply.objects.filter(parent_comment__post=post).count()
+    total_comments = replies_count+comments_count
+    return total_comments
 
 
 

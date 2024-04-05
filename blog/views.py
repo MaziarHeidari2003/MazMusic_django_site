@@ -55,10 +55,9 @@ def blog_view(request, **kwargs):
       'categories':categories
     })  
 
-  if kwargs.get('author_name') != None:
+  if kwargs.get('author_name') != None: 
     posts = posts.filter(author__username=kwargs['author_name'])
     profile = Profile.objects.get(user__username=kwargs['author_name'])
-
     posts = Paginator(posts,3)
     try:
       page_number = request.GET.get('page')
@@ -73,8 +72,15 @@ def blog_view(request, **kwargs):
       'categories':categories,
       'profile':profile
     })
+  posts = Paginator(posts,3)
+  try:
+      page_number = request.GET.get('page')
+      posts = posts.get_page(page_number)
+  except PageNotAnInteger:
+      posts = posts.get_page(1)
+  except EmptyPage:
+      posts = posts.get_page(1)  
 
-  
   return render(request, 'blog/blog-home.html',{
       'posts':posts,
       'categories':categories,

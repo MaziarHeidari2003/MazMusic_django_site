@@ -49,7 +49,7 @@
 									class="lnr lnr-calendar-full"></span></p>
 							<p class="view col-lg-12 col-md-12 col-6"><a href="#">{{post.counted_views}}</a> <span
 									class="lnr lnr-eye"></span></p>
-							<p class="comments col-lg-12 col-md-12 col-6"><a href="#">{{comment|length}} comments</a> <span
+							<p class="comments col-lg-12 col-md-12 col-6"><a href="#">{% comments_count post.id %} Comments</a> <span
 									class="lnr lnr-bubble"></span></p>
 									<p class="user-name col-lg-12 col-md-12 col-6"><a href="#">{{post.total_likes}} likes</a> <span
 										class="lnr lnr-user"></span>
@@ -153,7 +153,6 @@
 					{% include 'blog/ads.html' %}
 					{% popular_posts %}
 					{% post_categories %}
-					{% include 'blog/newsletter.html' %}
 
 
 

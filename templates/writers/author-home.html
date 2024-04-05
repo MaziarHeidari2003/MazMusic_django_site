@@ -16,9 +16,9 @@
 							</h2>	
 							{% else %}
 							<h2 class="text-white">
-								You are not a member of the blog yet!		
+								Not a BlogMember Yet!?		
 							</h2>	
-							<p class="text-white link-nav"><a id="scroll-to-form" href="#target-form" onclick="scrollToForm()">Fill in them form down the page </a>  <span class="lnr lnr-arrow-right"></span>  <a onclick="scrollToForm()"> Write your own posts</a></p>
+							<p class="text-white link-nav"><a id="scroll-to-form" href="{% url 'accounts:login' %}" onclick="scrollToForm()"> Login/Signup </a>  <span class="lnr lnr-arrow-right"></span>  <a onclick="scrollToForm()"> Write your Own posts</a></p>
 
 							{% endif %}
 						
@@ -64,15 +64,44 @@
 									<p>{{user.profile.bio}}</p>
 								</div>
 							</div>
+
 						</div>
 					{% endfor %}
+
+					<nav class="blog-pagination justify-content-center d-flex">
+						<ul class="pagination">
+							{% if users.has_previous %}
+							<li class="page-item">
+								<a href="?page={{posts.previous_page_number}}" class="page-link" aria-label="Previous">
+									<span aria-hidden="true">
+										<span class="lnr lnr-chevron-left"></span>
+									</span>
+								</a>
+							</li>
+							{% endif %}
+	
+							{% for i in users.paginator.page_range %}
+							<li class="page-item"><a href="?page={{i}}" class="page-link">{{i}}</a></li>
+							{% endfor %}
+	
+							{% if users.has_next %}
+							<li class="page-item">
+								<a href="?page={{users.next_page_number}}" class="page-link" aria-label="Next">
+									<span aria-hidden="true">
+										<span class="lnr lnr-chevron-right"></span>
+									</span>
+								</a>
+							</li>
+							{% endif %}
+						</ul>
+					</nav>
 		
 	
 				
 					<div class="section-top-border">
 						<div class="row">
 							<div class="col-lg-8 col-md-8">
-								<h3 class="mb-30">Add more info to your profile</h3>
+								<h3 class="mb-30">You could add more info to your profile!</h3>
 							
 								
 					
