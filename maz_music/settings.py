@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -146,10 +146,11 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
 EMAIL_HOST_USER = 'maziarheidari1124@gmail.com'
-EMAIL_HOST_PASSWORD=''
+EMAIL_HOST_PASSWORD= os.environ.get('AA_EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "My App"
 #EMAIL_USE_SSL = False

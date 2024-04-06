@@ -36,13 +36,13 @@ def contact_view(request):
     form = User_message_form(request.POST, request.FILES)
     if form.is_valid():
       form.save()
-      """
-                send_mail(
+     
+      send_mail(
                 request.POST.get('user_name'),
                 request.POST.get('message'),
                 request.POST.get('email'),
                 ['maziarheidari1124@gmail.com']
-           )"""
+           )
       messages.add_message(request, messages.ERROR, f" ")
       return HttpResponseRedirect(reverse('website:contact'))
     else:
