@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
+{% load blog_tags %}
 
 {% block content %}
 
@@ -52,7 +53,7 @@
 
 					{% for user in users %}
 						<div class="section-top-border">
-							<h3 class="mb-30"><a href="{% url 'blog:author' author_name=user.username %}">{{user.first_name}} {{user.last_name}}</a></h3>
+							<h3 class="mb-30"><a href="{% url 'blog:author' author_name=user.username %}">{{user.first_name|upfirstletter}} {{user.last_name|upfirstletter}}</a></h3>
 							<div class="row">
 								<div class="col-md-3">
 									<a href="{% url 'blog:author' author_name=user.username %}">

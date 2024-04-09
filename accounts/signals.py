@@ -4,6 +4,10 @@ from django.db.models.signals import (
 )
 from django.contrib.auth.models import AbstractUser,User
 from .models import Profile
+from django.db.models.signals import pre_save
+
+
+
 
 @receiver(post_save, sender=User)
 def update_user_profile(sender,instance,created, **kwargs):
@@ -11,3 +15,7 @@ def update_user_profile(sender,instance,created, **kwargs):
     Profile.objects.create(
       user=instance
     )
+
+
+
+

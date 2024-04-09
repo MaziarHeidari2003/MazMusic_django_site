@@ -7,6 +7,9 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import Signup_form, Blog_signup_form
 from django.contrib.auth.models import User
+from django.core.mail import send_mail,EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 
 # Create your views here.
@@ -58,6 +61,27 @@ def signup_view(request):
       password=form.cleaned_data.get('password1')
       user = authenticate(request, username=username, password=password)
       login(request,user)
+      my_subject = 'Email from maz_music'
+      my_receptient = form.cleaned_data['email']
+      mail_user = User.objects.get(email=my_receptient)
+      welcome_message = 'Welcome to maz_music Dear '+ str(user.first_name.capitalize())+'!' 
+
+
+      html_message = render_to_string('website/email.html',{
+        'welcome_message':welcome_message
+      })
+      plain_message = strip_tags(html_message)
+
+      message = EmailMultiAlternatives(
+        subject= my_subject,
+        body=plain_message,
+        from_email=request.POST.get('email'),
+        to=[my_receptient],
+
+      )
+
+      message.attach_alternative(html_message,'text/html')
+      message.send()
       return redirect('/')
     else:
         for field, errors in form.errors.items():

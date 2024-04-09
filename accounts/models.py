@@ -5,17 +5,20 @@ from django.db import models
 
 
 
+    # Your model fields...
+
 
 class Profile(models.Model):
   user = models.OneToOneField(User,on_delete=models.CASCADE, related_name='profile')
   image = models.ImageField(default='default_profile.png',blank=True, null=True)
   bio = models.TextField(null=True, blank=True)
  
-
-
+"""
 
 class CustomUser(User):
-
+    
+    
+ 
     def get_profile_info(self):
         profile = Profile.objects.filter(user=self).first()
 
@@ -27,7 +30,7 @@ class CustomUser(User):
                 'last_name': self.last_name,
                 'email': self.email,
                 'bio': profile.bio,  
-                'iamge':profile.image
+                'image':profile.image
               }
         else:
             # Return basic user info if no profile exists
@@ -37,3 +40,4 @@ class CustomUser(User):
                 'last_name': self.last_name,
                 'email': self.email,
             }
+"""

@@ -12,7 +12,7 @@
 		<div class="row d-flex align-items-center justify-content-center">
 			<div class="about-content col-lg-12">
 				<h1 class="text-white">
-					{{post.title}}
+					{{post.title|upfirstletter}}
 				</h1>
 				<p class="text-white link-nav"><a href="{% url 'website:index' %}">Home </a> <span class="lnr lnr-arrow-right"></span><a
 						href="{% url 'blog:index' %}">Blog </a> <span class="lnr lnr-arrow-right"></span> <a href="blog-single.html"> Blog
@@ -64,7 +64,7 @@
 						</div>
 					</div>
 					<div class="col-lg-9 col-md-9">
-						<h3 class="mt-20 mb-20">{{post.title}}</h3>
+						<h3 class="mt-20 mb-20">{{post.title|upfirstletter}}</h3>
 						<p class="excert">
 							{{post.content}}
 						</p>

@@ -83,5 +83,10 @@ def top_categories():
     }
 
 
-    
+    #it is for making the first letter of the names of the users capitalize
 
+@register.filter()
+def upfirstletter(value):
+    first = value[0] if len(value) > 0 else ''
+    remaining = value[1:] if len(value) > 1 else ''
+    return first.upper() + remaining

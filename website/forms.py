@@ -8,4 +8,4 @@ from django.forms import ModelForm
 class User_message_form(ModelForm):
   class Meta:
     model=User_message
-    fields= ['message','user_name','email']
+    fields= ['message','user_name','email','subject']
