@@ -77,17 +77,6 @@ def new_post(request):
           print(f"Field {field} has the following errors: {errors}")
           messages.add_message(request, messages.ERROR, "Something went wrong, please try again!")
 
-    elif request.POST.get('form_type') == 'its_bio':
-        
-        form = Blog_signup_form(request.POST or None,request.FILES or None,instance=profile)
-        if form.is_valid():
-          form.save()
-          return redirect(request.path)
-
-        else:  
-          for field, errors in form.errors.items():
-            print(f"Field {field} has the following errors: {errors}")
-          messages.add_message(request, messages.ERROR, "Something went wrong, please try again!")
 
 
 
@@ -123,7 +112,24 @@ def new_post(request):
 
 
 
+def the_bio_form(request):
+    profile = Profile.objects.get(user=request.user)
+    try:
+      previous_image_value = profile.image
+    except:
+      pass    
+    if request.method == 'POST':
+      print('bitch')
+      if request.POST.get('form_type') == 'its_bio':
+          form = Blog_signup_form(request.POST or None,request.FILES or None,instance=profile)
+          if form.is_valid():  
+            form.save()
+            return HttpResponseRedirect(reverse('writers:writer_view'))
 
+          else:  
+            for field, errors in form.errors.items():
+              print(f"Field {field} has the following errors: {errors}")
+            messages.add_message(request, messages.ERROR, "Something went wrong, please try again!")
 
 
 

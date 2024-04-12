@@ -115,6 +115,10 @@
 
 
 
+
+
+
+
 <!-- Start post-content Area -->
 <section class="post-content-area">
 	<div class="container">
@@ -256,17 +260,7 @@
 										
 										{% else %}
 								
-											<form method="post">
-											
-												{% csrf_token %}
-												<input type="hidden" value="its_bio" name="form_type">
-												<input type="hidden" name="user" value="{{request.user.id}}">
-												{{bform.bio}}	
-												<div class="col-lg-12">
-													<div class="alert-msg" style="text-align: left;"></div>
-													<button type="submit" class="genric-btn primary" style="float: right;">Add some Bio</button>											
-												</div>
-											</form>
+										<p>No Bio yet...</p>
 										{% endif %}
 									</p>
 								</div>
@@ -274,7 +268,53 @@
 
 				
 			
-					{% include 'blog/ads.html' %}
+
+
+
+								
+<div class="single-sidebar-widget ads-widget">
+  <form  action="{% url 'writers:the_bio_form' %}" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+		<input type="hidden" value="its_bio" name="form_type">
+
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}" {% endif %}><p>{{ message }}</p></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+
+    <input type="hidden" name="user" value="{{request.user.id}}">
+
+  
+    <div class="mt-10">
+    	<div class="col-lg-6 form-group">
+        <textarea name="bio" style="width: 260px; height: 160px;" class="common-textarea form-control"  placeholder="Enter Bio" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Bio'" ></textarea>				
+      </div>
+    </div>
+    <br>
+    <p>Your Profile Image</p>
+    {{bform.image}}
+    <br>
+
+    <br>
+    <button  type="submit" class="btn primary-btn">Submit</button>
+
+
+  </form>
+
+</div>
+
+
+
+
+
+
+
+
+
 					{% popular_posts %}
 					{% post_categories %}
 

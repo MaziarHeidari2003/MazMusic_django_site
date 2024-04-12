@@ -11,9 +11,25 @@ from django.db import models
 class Profile(models.Model):
   user = models.OneToOneField(User,on_delete=models.CASCADE, related_name='profile')
   image = models.ImageField(default='default_profile.png',blank=True, null=True)
-  bio = models.TextField(null=True, blank=True)
+  bio = models.TextField(default='No Bio yet...', blank=True)
+
+  def __str__(self):
+    return self.bio
+  
+
+
+
+
+
+
+
+
  
 """
+
+
+
+
 
 class CustomUser(User):
     
