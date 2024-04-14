@@ -56,15 +56,35 @@ def signup_view(request):
   if request.method == 'POST':
     form = Signup_form(request.POST)
     if form.is_valid():
-      form.save()
-      username=form.cleaned_data.get('username')
-      password=form.cleaned_data.get('password1')
+      password1 = form.cleaned_data['password1']
+      password2 = form.cleaned_data['password2']
+      email = form.cleaned_data['email']
+      first_name = form.cleaned_data['first_name']
+      last_name = form.cleaned_data['last_name']
+      email = form.cleaned_data['email']
+      username = form.cleaned_data['username']
+
+      u = User()
+      print(u)
+      u.first_name = first_name
+      print(u.first_name)
+
+      u.last_name=last_name
+      u.email=email
+      u.password=password1
+      u.username=username
+      print(u.username)
+
+      u.save()
+
+
+      password=u.password
       user = authenticate(request, username=username, password=password)
       login(request,user)
       my_subject = 'Email from maz_music'
       my_receptient = form.cleaned_data['email']
       mail_user = User.objects.get(email=my_receptient)
-      welcome_message = 'Welcome to maz_music Dear '+ str(user.first_name.capitalize())+'!' 
+      welcome_message = 'Welcome to maz_music Dear '+ str(u.first_name.capitalize())+'!' 
 
 
       html_message = render_to_string('website/email.html',{
@@ -87,7 +107,6 @@ def signup_view(request):
         for field, errors in form.errors.items():
            messages.add_message(request, messages.ERROR, f"Field {field} has the following errors: {errors}")
            print(f"Field {field} has the following errors: {errors}")
-        print('hffgggggggggggggggggggggggggggg')
         
       
   form = Signup_form()

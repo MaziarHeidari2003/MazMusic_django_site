@@ -13,10 +13,6 @@ class Profile(models.Model):
   image = models.ImageField(default='default_profile.png',blank=True, null=True)
   bio = models.TextField(default='No Bio yet...', blank=True)
 
-  def __str__(self):
-    return self.bio
-  
-
 
 
 
