@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from blog.models import Post
+from blog.models import Post,Category
 from django.contrib.auth.models import AbstractUser,User
 from blog.forms import Post_form
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
@@ -38,7 +38,7 @@ def writers_view(request):
       form.fields['bio'].widget.attrs['class'] = 'single-textarea'
       form.fields['bio'].widget.attrs['placeholder'] = 'a little biography'
 
-      users = Paginator(users,4)
+      users = Paginator(users,6)
       try:
         page_number=request.GET.get('page')
         users = users.get_page(page_number)
@@ -65,6 +65,7 @@ def writers_view(request):
 def new_post(request):
   profile = Profile.objects.get(user=request.user)
   posts = Post.objects.filter(author=request.user)
+
   if request.method == 'POST':
     if request.POST.get('form_type') == 'its_post':
       print(request.POST)
@@ -103,7 +104,7 @@ def new_post(request):
     'form':form,
     'posts':posts,
     'profile':profile,
-    'bform':bform
+    'bform':bform,
   })
 
 

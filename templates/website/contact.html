@@ -59,9 +59,17 @@
 								{% csrf_token %}
 								<div class="row">	
 									<div class="col-lg-6 form-group">
-										<input name="user_name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" class="common-input mb-20 form-control" required="" type="text">
-									
-										<input name="email" placeholder="Enter email address" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" class="common-input mb-20 form-control" required="" type="email">
+
+										{% if not request.user.is_authenticated %}
+												<input name="user_name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" class="common-input mb-20 form-control" required="" type="text">
+											
+												<input name="email" placeholder="Enter email address" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" class="common-input mb-20 form-control" required="" type="email">
+										
+										{% else %}
+												<input type="hidden" name="user_name" value="{{request.user.first_name}}">
+												<input type="hidden" name="email" value="{{request.user.email}}">		
+
+										{% endif %}
 
 
 										<input name="subject" placeholder="Enter subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter subject'" class="common-input mb-20 form-control" required="" type="text">
@@ -78,9 +86,19 @@
 							</form>	
 						</div>
 					</div>
+					<div >
+
+						{% if messages %}
+						<ul class="messages">
+							{% for message in messages %}
+							<li{% if message.tags %} class="{{ message.tags }}" {% endif %}><h4 class="text-warning">{{ message }}</h4></li>
+								{% endfor %}
+						</ul>
+						{% endif %}
+					</div>
 				</div>	
-				<h3> Thanks {{user_name}}</h3>
-				<p>We recieved your email and we respond shortly</p>
+				
+					
 			</section>
 			<!-- End contact-page Area -->
   {% endblock %}    

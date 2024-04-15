@@ -55,12 +55,7 @@
               </ul>			
             </div>
             <div class="col-lg-6 col-sm-6 col-6 header-top-right">
-            <div class="header-social">
-              <a href="#"><i class="fa fa-facebook"></i></a>
-              <a href="#"><i class="fa fa-twitter"></i></a>
-              <a href="#"><i class="fa fa-dribbble"></i></a>
-              <a href="#"><i class="fa fa-behance"></i></a>
-            </div>
+          
             </div>
           </div>			  					
         </div>
@@ -77,17 +72,31 @@
 							{% endif %}
 
             </div>
+						<nav id="nav-menu-container">
+							<ul class="nav-menu">
 						{% if request.user.is_authenticated %}
-							<div class="my_div"><a  href="{% url 'accounts:update_profile' %}">Update Profile</a></div>
+						<!--	<div class="my_div" style="width: 54%;"> -->   <li class="menu-has-children"><a style="width:60%" href="">Update Info</a>
+								<ul>
+									<li><a href="{% url 'accounts:update_profile' %}">Profile</a></li>
+									<li><a href="{% url 'accounts:update_password' %}">Password</a></li>
+								</ul>
+							</li>
+								
+						
+							
 						{% else %}	
-							<div style="margin-left: -21px;" class="my_div"><a  href="{% url 'accounts:login' %}">Build your Own Profile</a></div>
+							<a  href="{% url 'accounts:login' %}">Build your Own Profile</a>
 						{% endif %}	
-            <nav id="nav-menu-container">
-              <ul class="nav-menu">
+						
+
+
+						<li class="menu-has-children"><a href="{% url 'writers:writer_view' %}">My page</a>
+
+
                 <li><a href="{% url 'website:index' %}">Home</a></li>
 								{% if request.user.is_authenticated %}
 								
-								<li class="menu-has-children"><a href="{% url 'writers:writer_view' %}">My page</a>
+						
                   
                 </li>				
 								{% endif %}
@@ -143,66 +152,35 @@
 				<div class="container">
 
 					<div class="row">
-						<div class="col-lg-3  col-md-6 col-sm-6">
-							<div class="single-footer-widget">
-								<h6>About Agency</h6>
-								<p>
-									The world has become so fast paced that people don’t want to stand by reading a page of information, they would much rather look at a presentation and understand the message. It has come to a point 
-								</p>
-							</div>
-						</div>
+			
 						<div class="col-lg-3 col-md-6 col-sm-6">
 							<div class="single-footer-widget">
 								<h6>Navigation Links</h6>
 								<div class="row">
 									<div class="col">
 										<ul>
-											<li><a href="#">Home</a></li>
-											<li><a href="#">Feature</a></li>
-											<li><a href="#">Services</a></li>
-											<li><a href="#">Portfolio</a></li>
+											<li><a href="{% url 'website:index' %}">Home</a></li>
+											<li><a href="{% url 'website:contact' %}">Contact</a></li>
+											<li><a href="{% url 'website:about' %}">About</a></li>
+											<li><a href="{% url 'blog:index' %}">Blog</a></li>
 										</ul>
 									</div>
 									<div class="col">
 										<ul>
-											<li><a href="#">Team</a></li>
-											<li><a href="#">Pricing</a></li>
-											<li><a href="#">Blog</a></li>
-											<li><a href="#">Contact</a></li>
+											<li><a href="{% url 'writers:index' %}">writers</a></li>
+											<li><a href="{% url 'accounts:update_profile' %}">Update Profile</a></li>
+											<li><a href="{% url 'accounts:update_password' %}">Change Password</a></li>
+											
 										</ul>
 									</div>										
 								</div>							
 							</div>
 						</div>							
-				
-						<div class="col-lg-3  col-md-6 col-sm-6">
-							<div class="single-footer-widget mail-chimp">
-								<h6 class="mb-20">InstaFeed</h6>
-								<ul class="instafeed d-flex flex-wrap">
-									<li><img src="{% static 'img/i1.jpg' %}" alt=""></li>
-									<li><img src="{% static 'img/i2.jpg' %}" alt=""></li>
-									<li><img src="{% static 'img/i3.jpg' %}" alt=""></li>
-									<li><img src="{% static 'img/i4.jpg' %}" alt=""></li>
-									<li><img src="{% static 'img/i5.jpg' %}" alt=""></li>
-									<li><img src="{% static 'img/i6.jpg' %}" alt=""></li>
-									<li><img src="{% static 'img/i7.jpg' %}" alt=""></li>
-									<li><img src="{% static 'img/i8.jpg' %}" alt=""></li>
-								</ul>
-							</div>
-						</div>						
+			
+									
 					</div>
 
-					<div class="row footer-bottom d-flex justify-content-between align-items-center">
-						<p class="col-lg-8 col-sm-12 footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-						<div class="col-lg-4 col-sm-12 footer-social">
-							<a href="#"><i class="fa fa-facebook"></i></a>
-							<a href="#"><i class="fa fa-twitter"></i></a>
-							<a href="#"><i class="fa fa-dribbble"></i></a>
-							<a href="#"><i class="fa fa-behance"></i></a>
-						</div>
-					</div>
+		
 				</div>
 			</footer>
 			<!-- End footer Area -->	

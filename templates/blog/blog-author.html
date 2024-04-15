@@ -89,7 +89,9 @@
 				</div>
 				<hr>
 				<p>Oops Nothing was found!</p>
-					<h4> Be the first one to post your interests!</h4>
+					<h4>No Posts Found from {{profile.user.first_name}}</h4>
+          <h4>Lets show {{profile.user.first_name}} how its done!</h4> 
+          <h5>Create Your own Posts</h5>
 					<hr>
 					<a class="btn btn-warning" href="{% url 'writers:writer_view' %}">Create Post</a>
 				</div>

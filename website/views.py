@@ -63,12 +63,12 @@ def contact_view(request):
       message.attach_alternative(html_message,'text/html')
       message.send()
 
-      messages.add_message(request, messages.ERROR, f" ")
+      messages.add_message(request, messages.SUCCESS, "Thanks for your message, we'll respond shortly ")
       return HttpResponseRedirect(reverse('website:contact'))
     else:
-      for field, errors in form.errors.items():
-          messages.add_message(request, messages.ERROR, f"Field {field} has the following errors: {errors}")
-          print(f"Field {field} has the following errors: {errors}")
+      messages.add_message(request, messages.WARNING, "Sorry, Something went wrong, please try again")
+      return HttpResponseRedirect(reverse('website:contact'))
+
   form=User_message_form()
   return render(request, 'website/contact.html', {
     'form':form

@@ -23,7 +23,7 @@
                     {% if request.user.is_authenticated %}
                       <img class="rounded-circle shadow-1-strong me-3"
                         src="{{request.user.profile.image.url}}" alt="avatar" width="65"
-                        height="65" />
+                        height="65" style="object-fit: cover;" />
                         {% endif %}
                       <div class="flex-grow-1 flex-shrink-1">
                         <div>
@@ -31,7 +31,7 @@
                             <p class="mb-1">
                               {% if request.user.is_authenticated %}
 
-                                <span class="small">Try Something {{request.user.first_name}}</span>
+                                <span style="font-size: 16px;" class="small">Try Something {{request.user.first_name}}!</span>
                                 </p>
                               {% endif %}  
                             
@@ -85,7 +85,7 @@
                 
                   <div class="d-flex flex-start">
                     <img class="rounded-circle shadow-1-strong me-3"
-                      src="{{comment.commenter.profile.image.url}}" alt="avatar" width="65"
+                      src="{{comment.commenter.profile.image.url}}" style="object-fit: cover;" alt="avatar" width="65"
                       height="65" />
                     <div class="flex-grow-1 flex-shrink-1">
                       <div>
@@ -110,9 +110,12 @@
                            
                              {% endif %}
                         </div>
-                        <p class="small mb-0">
-                        {{comment.content}}
-                        </p>
+                        <div style="margin-bottom: 6px;">
+                          <p style="font-size: 18px; " class="small mb-0">
+                            {{comment.content}}
+                            </p>
+                        </div>
+                      
 
                         <div  >
                           <div style="width:100%">
@@ -146,7 +149,7 @@
                       <div class="d-flex flex-start mt-4">
                         <a class="me-3" href="#">
                           <img class="rounded-circle shadow-1-strong"
-                            src="{{rep.replier.profile.image.url}}" alt="avatar"
+                            src="{{rep.replier.profile.image.url}}" style="object-fit: cover;" alt="avatar"
                             width="65" height="65" />
                         </a>
                         <div class="flex-grow-1 flex-shrink-1">
@@ -156,7 +159,7 @@
                                 {{rep.replier.first_name}} <span class="small">{{rep.date|naturaltime}}</span>
                               </p>
                             </div>
-                            <p class="small mb-0">
+                            <p style="font-size:16px;" class="small mb-0">
                               {{rep.content}}
                             </p>
                           </div>

@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, SetPasswordForm
 from django.contrib.auth.models import User
 from django import forms
 from .models import Profile
@@ -6,7 +6,7 @@ from django.forms import ModelForm
 from django import forms
 from django.core.exceptions import ValidationError
 
-
+"""
 class Signup_form(forms.Form):
     username = forms.CharField(label='Username', max_length=100)
     password1 = forms.CharField(label='Password', max_length=100, widget=forms.PasswordInput())
@@ -36,6 +36,29 @@ class Signup_form(forms.Form):
         # Check if the email follows the correct format
       
         return email
+"""
+
+class Change_password_form(SetPasswordForm):
+   class Meta:
+      model=User
+      fields= ['new_password1', 'new_password2']
+   
+
+
+class Update_user_form(UserChangeForm):
+    class Meta:
+        model = User
+        fields = ['username','email','first_name', 'last_name']	
+
+
+
+class Signup_form(UserCreationForm):
+  class Meta:
+    model = User
+    fields = ['username','password1','password2','email','first_name', 'last_name']	
+
+
+
 
 
 class Blog_signup_form(ModelForm):

@@ -8,7 +8,7 @@ from .models import Category,Post,Track
 class Post_admin(admin.ModelAdmin):
   date_hierarchy = 'published_date'
   empty_value_display = 'it is empty'
-  list_display = ['title', 'author', 'counted_views', 'approved', ]
+  list_display = ['title', 'author',  'approved', ]
   list_filter = ['approved', 'author']
   
 

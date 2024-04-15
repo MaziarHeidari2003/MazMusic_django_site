@@ -19,13 +19,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%wz_k&ex%@5umh!38yceu+9pvtx0)a59udh0+**^3w8(mzt$)1'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -47,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps'
 ]
 
-SITE_ID = 2
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -83,12 +75,6 @@ WSGI_APPLICATION = 'maz_music.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 # Password validation
@@ -130,14 +116,7 @@ LOGIN_URL = '/accounts/login'  # Replace with the URL path of your login view
   # Replace with the URL path where users should be redirected after login
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'static'
-
 MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
-STATICFILES_DIRS = [
-    BASE_DIR / "statics",
-]
 
 #AUTH_USER_MODEL = 'accounts.User'
 
@@ -154,6 +133,17 @@ EMAIL_HOST_PASSWORD= os.environ.get('AA_EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "My App"
 #EMAIL_USE_SSL = False
+"""
 CSRF_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
+"""     
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+

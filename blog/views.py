@@ -67,12 +67,12 @@ def blog_view(request, **kwargs):
     except EmptyPage:
       posts = posts.get_page(1)  
 
-    return render(request, 'blog/blog-home.html',{
+    return render(request, 'blog/blog-author.html',{
       'posts':posts,
       'categories':categories,
       'profile':profile
     })
-  posts = Paginator(posts,3)
+  posts = Paginator(posts,5)
   try:
       page_number = request.GET.get('page')
       posts = posts.get_page(page_number)
@@ -102,7 +102,6 @@ def blog_single(request,pid):
 
       form = Comment_form(request.POST, request.FILES)
       if form.is_valid():
-        print('sssssssssssssssssssssssss')
         comment = form.save(commit=False)
         comment.post = post
         comment.commenter = current_user
@@ -117,6 +116,8 @@ def blog_single(request,pid):
   form.fields['content'].widget.attrs['rows'] = '5'
   rform = Reply_form()
   rform.fields['content'].widget.attrs['class'] = 'form-control mb-10'
+  rform.fields['content'].widget.attrs['style'] = 'height:25px;'
+
   rform.fields['content'].widget.attrs['rows'] = '5'
   rform.fields['content'].widget.attrs['width'] = '100%'
 
