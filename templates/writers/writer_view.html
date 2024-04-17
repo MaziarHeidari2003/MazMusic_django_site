@@ -292,11 +292,14 @@
   
     <div class="mt-10">
     	<div class="col-lg-6 form-group">
-        <textarea name="bio" style="width: 260px; height: 160px;" class="common-textarea form-control"  placeholder="Enter Bio" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Bio'" ></textarea>				
+				<!--
+        <textarea name="bio" style="width: 260px; height: 160px;" class="common-textarea form-control"  placeholder="Enter Bio" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Bio'" ></textarea>	
+				-->
+				{{bform.bio}}			
       </div>
     </div>
     <br>
-    <p>Your Profile Image</p>
+    <h5>Your Profile Image:</h5>
     {{bform.image}}
     <br>
 

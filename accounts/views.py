@@ -117,6 +117,7 @@ def signup_view(request):
 @login_required
 def update_profile(request):
   current_user = User.objects.get(id=request.user.id)
+ 
   form = Update_user_form(request.POST or None, instance=current_user)
   if request.method == 'POST':
 

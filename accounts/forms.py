@@ -61,7 +61,7 @@ class Signup_form(UserCreationForm):
 
 
 
-class Blog_signup_form(ModelForm):
+class Blog_signup_form(UserChangeForm):
   class Meta:
     model = Profile
     fields = ['bio','image','user']

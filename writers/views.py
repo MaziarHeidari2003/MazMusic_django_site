@@ -93,9 +93,20 @@ def new_post(request):
 
 
 
-  bform = Blog_signup_form()
-  bform.fields['bio'].widget.attrs['class'] = 'single-textarea'
+  bform = Blog_signup_form(request.POST or None,request.FILES or None,instance=profile)
+  bform.fields['bio'].widget.attrs['class'] = 'common-textarea form-control'
   bform.fields['bio'].widget.attrs['placeholder'] = 'a little biography'
+
+  bform.fields['bio'].widget.attrs['onfocus'] = "this.placeholder = ''"
+
+  bform.fields['bio'].widget.attrs['onblur'] =  "this.placeholder = 'Enter Bio'"
+
+  bform.fields['bio'].widget.attrs['style'] =  "width: 260px; height: 160px;"
+
+  
+  
+  
+  
 
 
 
@@ -114,11 +125,8 @@ def new_post(request):
 
 
 def the_bio_form(request):
-    profile = Profile.objects.get(user=request.user)
-    try:
-      previous_image_value = profile.image
-    except:
-      pass    
+    profile = Profile.objects.get(user=request.user.id)
+
     if request.method == 'POST':
       print('bitch')
       if request.POST.get('form_type') == 'its_bio':

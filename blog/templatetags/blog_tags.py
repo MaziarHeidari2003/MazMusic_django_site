@@ -92,6 +92,11 @@ def upfirstletter(value):
     return first.upper() + remaining
 
 
+#to remove some info wich is behind the iage button 
+
+@register.filter
+def remove_clear_text(value):
+    return '' if value == 'Clear' else value
 
 
 
