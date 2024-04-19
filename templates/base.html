@@ -82,16 +82,16 @@
 								</ul>
 							</li>
 								
-						
+							<li class="menu-has-children"><a href="{% url 'writers:writer_view' %}">My page</a>
+
 							
 						{% else %}	
-							<a  href="{% url 'accounts:login' %}">Build your Own Profile</a>
+							<li><a  href="{% url 'accounts:login' %}">Build your Own Profile</a></li>
 						{% endif %}	
 						
 
 
-						<li class="menu-has-children"><a href="{% url 'writers:writer_view' %}">My page</a>
-
+					
 
                 <li><a href="{% url 'website:index' %}">Home</a></li>
 								{% if request.user.is_authenticated %}

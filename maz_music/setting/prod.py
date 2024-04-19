@@ -4,9 +4,10 @@ from maz_music.settings import *
 SECRET_KEY = 'django-insecure-%wz_k&ex%@5umh!38yceu+9pvtx0)a59udh0+**^3w8(mzt$)1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.muzmusic.ir','muzmusic.ir']
+
 
 
 

@@ -139,11 +139,3 @@ SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 """     
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
