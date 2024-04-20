@@ -34,7 +34,7 @@ def writers_view(request):
           messages.add_message(request, messages.ERROR, "Something went wrong, please try again!")
 
 
-      form = Blog_signup_form()
+      form = Blog_signup_form(instance=profile)
       form.fields['bio'].widget.attrs['class'] = 'single-textarea'
       form.fields['bio'].widget.attrs['placeholder'] = 'a little biography'
 

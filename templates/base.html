@@ -69,6 +69,7 @@
 								{% else %}
 								<a href="{% url 'accounts:login' %}"><img src="{% static 'img/default_profile.png' %}" alt="" title="New Post" />
 								</a>
+								<a style="color:white; margin-left: 7px;"  href="{% url 'accounts:login' %}">Build your Own Profile</a>
 							{% endif %}
 
             </div>
@@ -84,9 +85,7 @@
 								
 							<li class="menu-has-children"><a href="{% url 'writers:writer_view' %}">My page</a>
 
-							
-						{% else %}	
-							<li><a  href="{% url 'accounts:login' %}">Build your Own Profile</a></li>
+					
 						{% endif %}	
 						
 
@@ -94,12 +93,10 @@
 					
 
                 <li><a href="{% url 'website:index' %}">Home</a></li>
-								{% if request.user.is_authenticated %}
 								
 						
                   
                 </li>				
-								{% endif %}
                 <li><a href="{% url 'website:about' %}">About</a></li>
                 <li class="menu-has-children"><a href="{% url 'blog:index' %}">Blog</a>
                 </li>	
